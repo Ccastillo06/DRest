@@ -5,7 +5,7 @@ const TYPES = ['Admin', 'Owner', 'Manager', 'Waiter', 'Customer'];
 const userSchema = new Schema({
   username: {type: String, required: true},
   password: {type: String, required: true},
-  email: {type: String, required:true},
+  email: {type: String},
   role: {type: String, required: true, enum: TYPES},
 }, {
   timestamps: true,

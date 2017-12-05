@@ -6,8 +6,28 @@ const debug = require('debug')('server:Authentication')
 
 module.exports.signUp = (req, res, next) => {
   const {username, password, email, role} = req.body;
-  if (!username || !password || !email || !role) {
-    res.status(400).json({ message: 'Provide username, password and email' });
+
+  if (role=="Admin" || role=="Owner" ) {
+    if(req.body.adminRegister != process.env.ADMIN_REGISTER){
+      res.status(403).json({ message: 'Unauthorized' });
+      return;
+    }
+  }
+
+  if (role=="Waiter" || role=="Manager" ) {
+      res.status(403).json({ message: 'Unauthorized' });
+      return;
+  }
+
+  if(role=="Customer") {
+    if(req.body.email == undefined) {
+      res.status(400).json({ message: 'Provide email' });
+      return;
+    }
+  }
+
+  if (!username || !password || !role) {
+    res.status(400).json({ message: 'Provide username and password' });
     return;
   }
 
@@ -29,15 +49,8 @@ module.exports.signUp = (req, res, next) => {
 
     theUser.save()
     .then(newUser => {
-      req.login(newUser, (err) => {
-        if (err) {
-          console.log(err);
-          res.status(500).json({ message: 'Something went wrong' });
-          return;
-        }
         debug('Sign Up Correct!')
-        res.status(200).json(req.user);
-      });
+        res.status(200).json(newUser);
     })
   })
   .catch(e => {
