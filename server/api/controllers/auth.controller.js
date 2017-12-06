@@ -95,3 +95,5 @@ module.exports.loggedIn = (req, res, next) => {
   }
   res.status(403).json({ message: 'Unauthorized' });
 }
+
+// Owner can add waiter or manager.
