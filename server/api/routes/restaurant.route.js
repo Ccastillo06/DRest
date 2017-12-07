@@ -5,4 +5,5 @@ const RestaurantController = require('../controllers/restaurant.controller');
 router.get('/info/:id', RestaurantController.getInfo)
 router.post('/new', RestaurantController.addNew);
 
+
 module.exports = router;
