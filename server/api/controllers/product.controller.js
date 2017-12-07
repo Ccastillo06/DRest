@@ -50,3 +50,13 @@ module.exports.editProduct = (req, res, next) => {
     .then( product => res.status(200).json(product))
     .catch( e => res.status(500).json({ message: 'Something went wrong'}))
 }
+
+module.exports.deleteProduct = (req, res, next) => {
+  if(!isAuthorized(req.user)) {
+    res.status(401).json({ message: 'Unauthorized'})
+    return
+  }
+  Product.findByIdAndRemove(req.params.id)
+    .then(removed => res.status(200).json(removed))
+    .catch(e => res.status(500).json({ message: 'Something went wrong'}))
+}
