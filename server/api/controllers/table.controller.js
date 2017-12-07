@@ -2,7 +2,7 @@ const express = require('express');
 const debug = require('debug')('server: Table');
 const Table = require('../models/table.model');
 const Restaurant = require('../models/restaurant.model');
-
+const Product = require('../models/product.model')
 isAuthorized = (user) => {
   return (user.role == 'Owner')? true : false
 }
@@ -48,5 +48,23 @@ module.exports.listTables = (req, res, next) => {
   Restaurant.findById(req.params.id)
     .populate('tables')
     .then(restaurant => res.status(200).json(restaurant.tables))
+    .catch(e => res.status(500).json({ message: 'Something went wrong'}))
+}
+
+module.exports.addOrder = (req, res, next) => {
+  if(req.user.role!='Customer' && req.user.role!='Waiter'){
+    res.status(401).json({ message: 'Unauthorized'})
+    return
+  }
+  Product.findById(req.body._id)
+    .then(product => {
+      Table.findByIdAndUpdate(req.params.id, {$push: {orders: {
+        _id: product._id,
+        name: product.name,
+        quantity: req.body.quantity,
+        price: req.body.price,
+      }}}, {new: true})
+      .then(table => res.status(200).json(table))
+    })
     .catch(e => res.status(500).json({ message: 'Something went wrong'}))
 }

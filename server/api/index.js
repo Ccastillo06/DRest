@@ -14,4 +14,5 @@ app.use('/inventory', inventory);
 app.use('/menu', menu);
 app.use('/table', table);
 
+
 module.exports = app;
