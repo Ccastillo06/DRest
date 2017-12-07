@@ -29,12 +29,15 @@ module.exports.addProduct = (req, res, next) => {
   }
   Product.findById(req.body.id)
     .then(product => {
-      Inventory.findByIdAndUpdate(req.params.id, {$push: {productArray: {
-        _id: product._id,
-        quantity: req.body.quantity,
-        price: req.body.price
-      }}}, {new: true})
-        .then(inventory => res.status(200).json(inventory))
+      Inventory.findByIdAndUpdate(req.params.id, {$pull: {productArray: {_id: product._id}}})
+        .then(() => {
+          Inventory.findByIdAndUpdate(req.params.id, {$push: {productArray: {
+              _id: product._id,
+              quantity: req.body.quantity,
+              price: req.body.price
+            }}}, {new: true} )
+            .then(inventory => res.status(200).json(inventory))
+        });
     })
     .catch(e => res.status(500).json({ message: 'Something went wrong'}))
 }
