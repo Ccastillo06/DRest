@@ -41,3 +41,20 @@ module.exports.addProduct = (req, res, next) => {
     })
     .catch(e => res.status(500).json({ message: 'Something went wrong'}))
 }
+
+module.exports.listInventory = (req, res, next) => {
+  if(!isAuthorized) {
+    res.status(401).json({ message: 'Unauthorized'})
+    return
+  }
+  Restaurant.findById(req.params.id)
+    .then(restaurant => {
+      if(restaurant.owner.toString() !== req.user._id.toString()){
+        res.status(401).json({message: 'Unauthorized'})
+        return
+      }
+      Inventory.findById(restaurant.inventory)
+        .then(inventory => res.status(200).json(inventory.productArray))
+    })
+    .catch(e => res.status(500).json({ message: 'Something went wrong'}))
+}
