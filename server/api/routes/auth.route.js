@@ -4,6 +4,8 @@ const AuthController = require('../controllers/auth.controller');
 
 router.post('/signup', AuthController.signUp);
 router.post('/login', AuthController.logIn);
+router.post('/worker/:id', AuthController.addWorker);
+router.post('/deleteworker/:id/:worker_id', AuthController.deleteWorker);
 router.get('/logout', AuthController.logOut);
 router.get('/loggedin', AuthController.loggedIn);
 

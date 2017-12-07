@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 const User = require('../models/user.model');
+const Restaurant = require('../models/restaurant.model');
 const debug = require('debug')('server:Authentication')
 
 module.exports.signUp = (req, res, next) => {
@@ -14,7 +15,7 @@ module.exports.signUp = (req, res, next) => {
     }
   }
 
-  if (role=="Waiter" || role=="Manager" ) {
+  if (role=="Waiter" || role=="Manager") {
       res.status(403).json({ message: 'Unauthorized' });
       return;
   }
@@ -97,3 +98,53 @@ module.exports.loggedIn = (req, res, next) => {
 }
 
 // Owner can add waiter or manager.
+module.exports.addWorker = (req, res, next) => {
+  const {username, password, role} = req.body;
+  console.log(req.body.role, req.user.role)
+  if ((role!="Waiter" && role!="Manager") || req.user.role!='Owner') {
+      res.status(403).json({ message: 'Unauthorized' });
+      return;
+  }
+
+  if (!username || !password) {
+    res.status(400).json({ message: 'Provide username and password' });
+    return;
+  }
+  const salt     = bcrypt.genSaltSync(10);
+  const hashPass = bcrypt.hashSync(password, salt);
+
+  const theUser = new User({
+    username,
+    password: hashPass,
+    role
+  });
+
+  theUser.save()
+    .then(worker => {
+        debug('Sign Worker Up Correct!')
+        Restaurant.findByIdAndUpdate(req.params.id, {$push: {workers: worker._id}}, {new: true})
+          .then(restaurant => res.status(200).json(restaurant.workers))
+      })
+    .catch(e => {
+        res.status(500).json({ message: 'Something went wrong' });
+    });
+}
+
+module.exports.deleteWorker = (req, res, next) => {
+  if (req.user.role!='Owner') {
+    res.status(403).json({ message: 'Unauthorized' });
+    return;
+  }
+  Restaurant.findById(req.params.id)
+    .then(restaurant => {
+      if(req.user._id.toString() != restaurant.owner.toString()){
+        res.status(403).json({ message: 'Unauthorized' });
+        return;
+      }
+      Restaurant.findByIdAndUpdate(restaurant._id, {$pull: {workers: req.params.worker_id}}, {new: true})
+        .then(restaurant => res.status(200).json(restaurant))
+      })
+      .catch(e => {
+        res.status(500).json({ message: 'Something went wrong' });
+    });
+}
