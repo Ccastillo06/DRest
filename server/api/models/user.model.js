@@ -7,7 +7,8 @@ const userSchema = new Schema({
   password: {type: String, required: true},
   email: {type: String},
   role: {type: String, required: true, enum: TYPES},
-  restaurants: [{type: Schema.Types.ObjectId, ref:'Restaurant'}]
+  restaurants: [{type: Schema.Types.ObjectId, ref:'Restaurant'}],
+  works_in: {type: Schema.Types.ObjectId, ref:'Restaurant'},
 }, {
   timestamps: true,
 });

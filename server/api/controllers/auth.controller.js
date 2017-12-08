@@ -100,12 +100,10 @@ module.exports.loggedIn = (req, res, next) => {
 // Owner can add waiter or manager.
 module.exports.addWorker = (req, res, next) => {
   const {username, password, role} = req.body;
-  console.log(req.body.role, req.user.role)
   if ((role!="Waiter" && role!="Manager") || req.user.role!='Owner') {
       res.status(403).json({ message: 'Unauthorized' });
       return;
   }
-
   if (!username || !password) {
     res.status(400).json({ message: 'Provide username and password' });
     return;
@@ -116,7 +114,8 @@ module.exports.addWorker = (req, res, next) => {
   const theUser = new User({
     username,
     password: hashPass,
-    role
+    role,
+    works_in: req.params.id,
   });
 
   theUser.save()
