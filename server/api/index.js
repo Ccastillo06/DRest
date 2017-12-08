@@ -6,6 +6,7 @@ const product = require('./routes/product.route');
 const inventory = require('./routes/inventory.route');
 const menu = require('./routes/menu.route');
 const table = require('./routes/table.route');
+const ticket = require('./routes/ticket.route');
 
 app.use('/auth', auth);
 app.use('/restaurant', rest);
@@ -13,6 +14,6 @@ app.use('/product', product);
 app.use('/inventory', inventory);
 app.use('/menu', menu);
 app.use('/table', table);
-
+app.use('/ticket', ticket);
 
 module.exports = app;

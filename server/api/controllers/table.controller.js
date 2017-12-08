@@ -3,6 +3,7 @@ const debug = require('debug')('server: Table');
 const Table = require('../models/table.model');
 const Restaurant = require('../models/restaurant.model');
 const Product = require('../models/product.model')
+
 isAuthorized = (user) => {
   return (user.role == 'Owner')? true : false
 }
