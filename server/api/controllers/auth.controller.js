@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user.model');
 const Restaurant = require('../models/restaurant.model');
 const debug = require('debug')('server:Authentication')
+const nodemailer = require('nodemailer');
 
 module.exports.signUp = (req, res, next) => {
   const {username, password, email, role} = req.body;
@@ -50,6 +51,25 @@ module.exports.signUp = (req, res, next) => {
 
     theUser.save()
     .then(newUser => {
+        if(newUser.role=='Owner'){
+          var transporter = nodemailer.createTransport({
+              service: 'Gmail',
+              auth: {
+                  user: `${process.env.ADMIN_MAIL}`,
+                  pass: `${process.env.ADMIN_PASS}`
+              }
+          });
+          var text = `Welcome to DRest, \n You became an ${newUser.role} with the next data: \nUsername: ${newUser.username}\nPassword: ${req.body.password}\n\nYou can now start managing your restaurant data and start using our application.\n\n\nGreetings from the DRest team!`;
+          var mailOptions = {
+            from: `${process.env.ADMIN_MAIL}`,
+            to: newUser.email,
+            subject: 'Welcome to DRest!',
+            text: text
+          }
+          transporter.sendMail(mailOptions, (err, info) => {
+           return err ? console.log(err) : console.log(info);
+          });
+        }
         debug('Sign Up Correct!')
         res.status(200).json(newUser);
     })
