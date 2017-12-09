@@ -1,0 +1,35 @@
+<div class="main-banner">
+  <h1>Welcome to DRest!</h1>
+  <div class="main-users">
+    <div class="Owner">
+      <p>Are you the Owner of a Restaurant?</p>
+      <button (click)="showOwnerForm()">Sign in here</button>
+    </div>
+    <div class="Customer">
+      <p>Are you a Customer?</p>
+      <a href="#"><button>Sign in here</button></a>
+    </div>
+  </div>
+</div>
+
+<div class="main-signup" *ngIf="showOwner">
+  <h1>Registration Form</h1>
+  <form (ngSubmit)="ownerSignUp(ownerForm)" #ownerForm="ngForm">
+  <fieldset>
+    <div>
+      <label for="username">Username</label>
+      <input type="text" name="username" [(ngModel)]="user.username" required>
+    </div>
+    <div>
+      <label for="email">Email</label>
+      <input type="text" name="email" [(ngModel)]="user.email" required>
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input type="password" name="password" [(ngModel)]="user.password" required>
+    </div>
+    <button type="submit" [disabled]="!ownerForm.valid">Login</button>
+    <p class="error" *ngIf="error">{{ error }}</p>
+  </fieldset>
+</form>
+</div>
