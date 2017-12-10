@@ -5,12 +5,12 @@
   <h1>DRest!</h1>
   <div class="main-users">
     <div class="user">
-      <p>Owner?</p>
-      <button (click)="showOwnerForm()">Sign in</button>
+      <p>New to the service?</p>
+      <button data-toggle="modal" data-target="#myModal">Sign Up</button>
     </div>
     <div class="user">
-      <p>Customer?</p>
-      <a href="#"><button>Sign in</button></a>
+      <p>Already an user?</p>
+      <a href="#"><button>Login</button></a>
     </div>
   </div>
 </div>
@@ -31,25 +31,49 @@
     </div>
 </div>
 
-<div class="main-signup" *ngIf="showOwner">
-  <h1>Registration Form</h1>
-  <form (ngSubmit)="ownerSignUp(ownerForm)" #ownerForm="ngForm">
-  <fieldset>
-    <div>
-      <label for="username">Username</label>
-      <input type="text" name="username" [(ngModel)]="user.username" required>
-    </div>
-    <div>
-      <label for="email">Email</label>
-      <input type="text" name="email" [(ngModel)]="user.email" required>
-    </div>
-    <div>
-      <label for="information">Give some insight about yourself</label>
-      <textarea type="information" name="information" [(ngModel)]="user.information" required>
-      </textarea>
-    </div>
-    <button type="submit" [disabled]="!ownerForm.valid">Login</button>
-    <p class="error" *ngIf="error">{{ error }}</p>
-  </fieldset>
-</form>
+<div class="container">
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title"><i class="fa fa-cutlery" aria-hidden="true"></i>DRest Registration<i class="fa fa-cutlery" aria-hidden="true"></i></h1>
+        </div>
+        <form (ngSubmit)="userSignUp()" #signupForm="ngForm">
+            <div class="modal-body">
+                <div class="modal-input">
+                  <label for="username">Username</label><br>
+                  <input type="text" name="username" [(ngModel)]="user.username" required>
+                </div>
+                <div class="modal-input">
+                  <label for="email">Email</label><br>
+                  <input type="text" name="email" [(ngModel)]="user.email" required>
+                </div>
+                <div class="modal-input">
+                  <label for="role">Account type</label><br>
+                  <select name="role" [(ngModel)]="user.role" required>
+                    <option value="Owner">Owner</option>
+                    <option value="Customer">Customer</option>
+                  </select>
+                </div>
+                <div *ngIf="user.role=='Customer'" class="modal-input">
+                  <label for="password">Password</label><br>
+                  <input type="password" name="password" [(ngModel)]="user.password" required>
+                </div>
+                <div *ngIf="user.role=='Owner'" class="modal-input">
+                  <label for="information">Give some insight about yourself</label><br>
+                  <textarea rows="3" type="information" name="information" [(ngModel)]="user.information" required>
+                  </textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <button type="submit" [disabled]="!signupForm.valid" data-toggle="modal" data-target="#myModal">SignUp</button>
+              <p class="error" *ngIf="error">{{ error }}</p>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
 </div>

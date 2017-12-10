@@ -12,6 +12,7 @@ import { AuthService } from './shared/services/auth.service'
 
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BsModalModule } from 'ng2-bs3-modal';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
+    BsModalModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

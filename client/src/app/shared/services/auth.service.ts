@@ -17,8 +17,13 @@ export class AuthService {
     return this.user !== null && this.user !== undefined;
   }
 
-  ownerSignUp(user): Observable<any> {
-    return this.http.post(`${this.baseUrl}/owner`, JSON.stringify(user), this.options)
+  userSignUp(user): Observable<any> {
+    if(user.role == 'Owner'){
+      return this.http.post(`${this.baseUrl}/owner`, JSON.stringify(user), this.options)
+    }
+    if(user.role == 'Customer') {
+      return this.http.post(`${this.baseUrl}/signup`, JSON.stringify(user), this.options)
+    }
   }
 
   protected handleError(error: Response | any): Observable<any> {

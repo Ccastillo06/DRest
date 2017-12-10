@@ -33,7 +33,7 @@
   margin-bottom: 15px;
 }
 
-.user button {
+button {
   background-color: rgb(207, 58, 36);
   color: white;
   font-weight: bold;
@@ -65,4 +65,39 @@
 
 .main-description {
   padding: 0px 15px;
+}
+
+
+/*Modal Content*/
+.modal-body {
+  text-align: center;
+}
+
+.modal-header {
+  text-align: center;
+}
+.modal-title {
+  font-family: 'Medula One', cursive;
+}
+
+.modal-title i {
+  font-size: 0.6em;
+  margin: 0 10px;
+}
+
+.modal-input {
+  margin: 15px;
+}
+
+.modal-input input, textarea{
+  width: 80%;
+}
+
+.modal-input label {
+  margin: 5px;
+}
+
+.close {
+  float: left;
+  padding: 5px 10px;
 }
