@@ -10,6 +10,9 @@ import { AppComponent } from './app.component';
 import { MainComponent } from './shared/components/main/main.component';
 import { AuthService } from './shared/services/auth.service'
 
+import { SimpleNotificationsModule } from 'angular2-notifications';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +22,9 @@ import { AuthService } from './shared/services/auth.service'
     BrowserModule,
     HttpModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
+    SimpleNotificationsModule.forRoot(),
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

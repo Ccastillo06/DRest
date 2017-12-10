@@ -59,7 +59,7 @@ module.exports.signUp = (req, res, next) => {
                   pass: `${process.env.ADMIN_PASS}`
               }
           });
-          var text = `Welcome to DRest, \n You became an ${newUser.role} with the next data: \nUsername: ${newUser.username}\nPassword: ${req.body.password}\n\nYou can now start managing your restaurant data and start using our application.\n\n\nGreetings from the DRest team!`;
+          var text = `Welcome to DRest, \n You became an ${newUser.role} with the next data: \nUsername: ${newUser.username}\nPassword: ${req.body.password}\n\nYou can now start managing your restaurant data and start using our application.\nRemember to change your password firstly!\n\nGreetings from the DRest team!`;
           var mailOptions = {
             from: `${process.env.ADMIN_MAIL}`,
             to: newUser.email,
@@ -166,4 +166,31 @@ module.exports.deleteWorker = (req, res, next) => {
       .catch(e => {
         res.status(500).json({ message: 'Something went wrong' });
     });
+}
+
+module.exports.ownerPetition = (req, res, next) => {
+  if(req.body.role == 'Owner'){
+    const newOwner = {
+      username: req.body.username,
+      email: req.body.email,
+      information: req.body.information,
+    }
+    var transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+            user: `${process.env.ADMIN_MAIL}`,
+            pass: `${process.env.ADMIN_PASS}`
+        }
+    });
+    var text = `A new Owner wants to register: \n {\n"username": "${newOwner.username}",\n"password": "1234",\n"email": "${newOwner.email}",\n"role": "Owner"\n}\nInformation given: ${newOwner.information}`;
+    var mailOptions = {
+      from: `${process.env.ADMIN_MAIL}`,
+      to: `${process.env.ADMIN_MAIL}`,
+      subject: 'New Owner wants to Sign Up!',
+      text: text
+    }
+    transporter.sendMail(mailOptions, (err, info) => {
+     return err ? res.status(500).json(err) : res.status(200).json(info);
+    });
+  }
 }

@@ -1,15 +1,34 @@
+<simple-notifications></simple-notifications>
+
 <div class="main-banner">
-  <h1>Welcome to DRest!</h1>
+  <h2>Welcome to</h2>
+  <h1>DRest!</h1>
   <div class="main-users">
-    <div class="Owner">
-      <p>Are you the Owner of a Restaurant?</p>
-      <button (click)="showOwnerForm()">Sign in here</button>
+    <div class="user">
+      <p>Owner?</p>
+      <button (click)="showOwnerForm()">Sign in</button>
     </div>
-    <div class="Customer">
-      <p>Are you a Customer?</p>
-      <a href="#"><button>Sign in here</button></a>
+    <div class="user">
+      <p>Customer?</p>
+      <a href="#"><button>Sign in</button></a>
     </div>
   </div>
+</div>
+
+<div class="main-body">
+  <h1>Manage your business</h1>
+    <div class="main-description">
+        <i class="fa fa-rocket" aria-hidden="true"></i>
+        <p>Make your business work faster than ever!</p>
+    </div>
+    <div class="main-description">
+        <i class="fa fa-line-chart" aria-hidden="true"></i>
+        <p>Generate complete and continuous data with your workflow.</p>
+    </div>
+    <div class="main-description">
+        <i class="fa fa-users" aria-hidden="true"></i>
+        <p>Let your customers know you, become social and bigger!</p>
+    </div>
 </div>
 
 <div class="main-signup" *ngIf="showOwner">
@@ -25,8 +44,9 @@
       <input type="text" name="email" [(ngModel)]="user.email" required>
     </div>
     <div>
-      <label for="password">Password</label>
-      <input type="password" name="password" [(ngModel)]="user.password" required>
+      <label for="information">Give some insight about yourself</label>
+      <textarea type="information" name="information" [(ngModel)]="user.information" required>
+      </textarea>
     </div>
     <button type="submit" [disabled]="!ownerForm.valid">Login</button>
     <p class="error" *ngIf="error">{{ error }}</p>

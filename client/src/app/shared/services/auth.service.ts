@@ -19,8 +19,6 @@ export class AuthService {
 
   ownerSignUp(user): Observable<any> {
     return this.http.post(`${this.baseUrl}/owner`, JSON.stringify(user), this.options)
-      .map(res => {})
-      .catch(this.handleError);
   }
 
   protected handleError(error: Response | any): Observable<any> {

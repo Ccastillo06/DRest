@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-main',
@@ -11,22 +12,31 @@ export class MainComponent implements OnInit {
   user = {role:''};
   error: string;
   showOwner: Boolean = false;
+  validate: Boolean = false;
 
-  constructor(private router : Router, private authService : AuthService) {}
+  constructor(private router : Router, private authService : AuthService, public service: NotificationsService) {}
 
   ngOnInit() {
   }
 
   showOwnerForm(){
-    this.showOwner = true;
+    this.showOwner = !this.showOwner;
+  }
+
+  showValidation(){
+    this.validate = !this.validate;
   }
 
   ownerSignUp(ownerForm) {
     this.user.role = 'Owner';
-    this.authService.ownerSignUp(this.user).subscribe(
-      (user) => {ownerForm.reset(); this.showOwner = false;},
-      (error) => {this.error = error.message}
-    );
-}
+    this.showOwnerForm();
+    this.service.success('Registration Complete!', 'You\'ll receive a confirmation email soon.', {
+     timeOut: 3000,
+     showProgressBar: true,
+     clickToClose: true
+   });
+    this.authService.ownerSignUp(this.user)
+      .subscribe(res => ownerForm.reset())
+  }
 
 }

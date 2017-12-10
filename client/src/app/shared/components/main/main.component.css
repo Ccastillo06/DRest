@@ -1,0 +1,68 @@
+.main-banner {
+  background-image: url("http://res.cloudinary.com/ddpsctbpe/image/upload/v1512900814/drest-banner_kl0mjb.png");
+  background-size: cover;
+  text-align: center;
+  padding: 30px;
+  margin: 0
+}
+
+.main-banner h1 {
+  margin: 0;
+  font-size: 5em;
+  color: white;
+  font-family: 'Medula One', cursive;
+}
+
+.main-banner h2 {
+  margin: 0;
+  font-size: 4em;
+  color: white;
+  font-family: 'Medula One', cursive;
+}
+
+.main-users {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.user p {
+  color: white;
+  font-weight: bold;
+  font-size: 1em;
+  margin-bottom: 15px;
+}
+
+.user button {
+  background-color: rgb(207, 58, 36);
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  border: 1px solid white;
+  padding: 5px 10px;
+}
+
+.main-body {
+  text-align: center;
+  color: #0d0a0a;
+  padding: 0 10px;
+  margin: 0;
+}
+
+.main-body h1 {
+  font-family: 'Medula One', cursive;
+  font-size: 2.5em;
+  margin-bottom: 20px;;
+}
+
+.main-body p {
+  margin-top: 10px;
+}
+
+.main-body i {
+  font-size: 1.5em;
+}
+
+.main-description {
+  padding: 0px 15px;
+}
