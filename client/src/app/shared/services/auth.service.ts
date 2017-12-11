@@ -26,6 +26,10 @@ export class AuthService {
     }
   }
 
+  userLogin(user): Observable<any> {
+    return this.http.post(`${this.baseUrl}/login`, JSON.stringify(user), this.options)
+  }
+
   protected handleError(error: Response | any): Observable<any> {
     return Observable.throw(error.json());
   }

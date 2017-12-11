@@ -67,6 +67,15 @@ button {
   padding: 0px 15px;
 }
 
+.main-separator {
+  font-size: 2em;
+  color: rgba(207, 58, 36, 0.7);
+  margin-top: 40px;
+}
+
+.main-separator hr {
+  margin: 5px;
+}
 
 /*Modal Content*/
 .modal-body {

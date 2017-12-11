@@ -51,7 +51,7 @@ module.exports.signUp = (req, res, next) => {
 
     theUser.save()
     .then(newUser => {
-        if(newUser.role=='Owner'){
+        if(newUser.role=='Owner' || newUser.role=='Customer'){
           var transporter = nodemailer.createTransport({
               service: 'Gmail',
               auth: {
@@ -59,7 +59,12 @@ module.exports.signUp = (req, res, next) => {
                   pass: `${process.env.ADMIN_PASS}`
               }
           });
-          var text = `Welcome to DRest, \n You became an ${newUser.role} with the next data: \nUsername: ${newUser.username}\nPassword: ${req.body.password}\n\nYou can now start managing your restaurant data and start using our application.\nRemember to change your password firstly!\n\nGreetings from the DRest team!`;
+          if(newUser.role=='Owner'){
+            var text = `Welcome to DRest, \n You became an ${newUser.role} with the next data: \nUsername: ${newUser.username}\nPassword: ${req.body.password}\n\nYou can now start managing your restaurant data and start using our application.\nRemember to change your password first!\n\nGreetings from the DRest team!`;
+          }
+          if(newUser.role=='Customer'){
+            var text = `Hi ${newUser.username}, welcome to DRest! \n\nShow this community which bars and restaurants are the best!\n\n\nGreetings from the DRest team!`;
+          }
           var mailOptions = {
             from: `${process.env.ADMIN_MAIL}`,
             to: newUser.email,
@@ -67,7 +72,7 @@ module.exports.signUp = (req, res, next) => {
             text: text
           }
           transporter.sendMail(mailOptions, (err, info) => {
-           return err ? console.log(err) : console.log(info);
+            return err ? console.log(err) : console.log(info);
           });
         }
         debug('Sign Up Correct!')
@@ -85,12 +90,10 @@ module.exports.logIn = (req, res, next) => {
       res.status(500).json({ message: 'Something went wrong' });
       return;
     }
-    console.log(user)
     if (!user) {
       res.status(401).json(failureDetails);
       return;
     }
-
     req.login(user, (err) => {
       if (err) {
         res.status(500).json({ message: 'Something went wrong' });
@@ -190,7 +193,8 @@ module.exports.ownerPetition = (req, res, next) => {
       text: text
     }
     transporter.sendMail(mailOptions, (err, info) => {
-     return err ? res.status(500).json(err) : res.status(200).json(info);
+     return err ? console.log(err) : console.log(info);
     });
+    res.status(200).json({message: 'Signed up'})
   }
 }

@@ -10,7 +10,7 @@
     </div>
     <div class="user">
       <p>Already an user?</p>
-      <a href="#"><button>Login</button></a>
+      <button data-toggle="modal" data-target="#loginModal">Login</button>
     </div>
   </div>
 </div>
@@ -29,7 +29,36 @@
         <i class="fa fa-users" aria-hidden="true"></i>
         <p>Let your customers know you, become social and bigger!</p>
     </div>
+    <div class="main-separator">
+      <hr>
+      <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+      <hr>
+    </div>
+    <h1>Look for the best Restaurant</h1>
+    <div class="main-description">
+        <i class="fa fa-book" aria-hidden="true"></i>
+        <p>Book in advance with an easy click!</p>
+    </div>
+    <div class="main-description">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
+        <p>Reliable comments from real customers</p>
+    </div>
+    <div class="main-description">
+        <i class="fa fa-diamond" aria-hidden="true"></i>
+        <p>See the most famous dishes in the menu...</p>
+    </div>
+    <div class="main-description">
+        <i class="fa fa-beer" aria-hidden="true"></i>
+        <p>...or the best drinks in the place!</p>
+    </div>
+    <div class="main-separator">
+      <hr>
+      <i id='scroll-up' class="fa fa-eject" aria-hidden="true"></i>
+      <hr>
+    </div>
 </div>
+
+
 
 <div class="container">
   <!-- Modal -->
@@ -70,6 +99,37 @@
             <div class="modal-footer">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
               <button type="submit" [disabled]="!signupForm.valid" data-toggle="modal" data-target="#myModal">SignUp</button>
+              <p class="error" *ngIf="error">{{ error }}</p>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div class="container">
+  <!-- Modal -->
+  <div class="modal fade" id="loginModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title"><i class="fa fa-cutlery" aria-hidden="true"></i>DRest Login<i class="fa fa-cutlery" aria-hidden="true"></i></h1>
+        </div>
+        <form (ngSubmit)="userLogin()" #loginForm="ngForm">
+            <div class="modal-body">
+                <div class="modal-input">
+                  <label for="username">Email</label><br>
+                  <input type="text" name="username" [(ngModel)]="userLog.username" required>
+                </div>
+                <div class="modal-input">
+                  <label for="password">Password</label><br>
+                  <input type="password" name="password" [(ngModel)]="userLog.password" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <button type="submit" [disabled]="!loginForm.valid" data-toggle="modal" data-target="#loginModal">Login</button>
               <p class="error" *ngIf="error">{{ error }}</p>
             </div>
           </form>
