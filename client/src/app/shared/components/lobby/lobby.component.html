@@ -16,8 +16,11 @@ Manage your businesses!<i class="fa fa-bookmark" aria-hidden="true"></i>
       </div>
     </div>
     <div *ngIf="lobbyUser.role=='Customer'">
-      <div class="restaurant-preview" *ngFor="let restaurant of lobbyUser.restaurants">
-
+      <div class="restaurant-preview" *ngFor="let restaurant of restaurants">
+        <a [routerLink]="['/restaurant',restaurant.name]">
+        <img src={{restaurant.image}} alt="restaurant-photo">
+        <h3>{{restaurant.name}}</h3>
+        </a>
       </div>
     </div>
   </div>
@@ -30,7 +33,7 @@ Manage your businesses!<i class="fa fa-bookmark" aria-hidden="true"></i>
   </div>
 </div>
 
-
+<div class="footer-limit"></div>
 <app-footer></app-footer>
 
 <div class="container">
@@ -51,6 +54,14 @@ Manage your businesses!<i class="fa fa-bookmark" aria-hidden="true"></i>
                 <div class="modal-input">
                   <label for="description">Description</label><br>
                   <textarea type="text" name="description" [(ngModel)]="newRestaurant.description" required></textarea>
+                </div>
+                <div class="modal-input">
+                  <label for="open-time">Opening:</label>
+                  <input type="time" name="openTime" value="00:00" [(ngModel)]="newRestaurant.openTime" required>
+                </div>
+                <div class="modal-input">
+                  <label for="close-time">Closing:</label>
+                  <input type="time" name="closeTime" value="00:00" [(ngModel)]="newRestaurant.closeTime" required>
                 </div>
                 <div class="modal-input">
                   <label for="file">Photo</label><br>

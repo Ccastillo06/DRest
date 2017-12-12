@@ -1,0 +1,24 @@
+<div class="rest-body" *ngIf="restaurant">
+  <div class="rest-head">
+  <h1>{{restaurant.name}}</h1>
+</div>
+<div class="rest-info">
+  <img src="{{restaurant.image}}" alt="restaurant-photo">
+  <h2>
+    Information:
+  </h2>
+  <h4>{{restaurant.description}}</h4>
+  <h2>
+    Opening hours:
+  </h2>
+  <h4>{{restaurant.openTime}}  -  {{restaurant.closeTime}}</h4>
+
+  <div class="info-buttons">
+    <button>Menu</button>
+    <button>Reserve</button>
+  </div>
+</div>
+
+
+<div class="footer-limit"></div>
+<app-footer></app-footer>

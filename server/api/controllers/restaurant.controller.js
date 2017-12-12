@@ -15,7 +15,7 @@ module.exports.getAll = (req, res, next) => {
 }
 
 module.exports.getInfo = (req, res, next) => {
-  Restaurant.findById(req.params.id)
+  Restaurant.findOne({name: req.params.name})
     .then( restaurant => {
       debug(`Found Restaurant: ${restaurant.name}`);
       res.status(200).json(restaurant);
@@ -26,9 +26,9 @@ module.exports.getInfo = (req, res, next) => {
 }
 
 module.exports.newRestaurant = (req, res, next) => {
-  const {name, description} = req.body;
+  const {name, description, openTime, closeTime} = req.body;
   console.log(req.file)
-  const image = `${req.file.path}`;
+  const image = `${req.file.url}`;
   const owner = req.user._id;
 
   if ((!name || !owner) || req.user.role != 'Owner') {
@@ -48,6 +48,8 @@ module.exports.newRestaurant = (req, res, next) => {
       owner,
       image,
       description,
+      openTime,
+      closeTime,
     });
 
     theRestaurant.save()

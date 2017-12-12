@@ -18,6 +18,10 @@ export class RestaurantService {
       .map(res => res.json())
   }
 
+  getOneRestaurant(name){
+    return this.http.get(`${this.baseUrl}/info/${name}`, this.options)
+      .map(res => res.json())
+  }
 
   protected handleError(error: Response | any): Observable<any> {
     return Observable.throw(error.json());

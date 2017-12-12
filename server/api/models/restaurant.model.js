@@ -8,6 +8,8 @@ const restaurantSchema = new Schema({
   //   latitude: {type: String},
   //   longitude: {type: String},
   // },
+  openTime: {type: String},
+  closeTime: {type: String},
   image: {type: String, default: ''},
   owner: {type: Schema.Types.ObjectId, ref:'User', required: true},
   workers: [{type: Schema.Types.ObjectId, ref:'User'}],

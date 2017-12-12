@@ -1,0 +1,45 @@
+.rest-body {
+  text-align: center;
+  color: #0d0a0a;
+}
+
+.rest-head {
+  color: white;
+  background-color: rgba(207, 58, 36, 0.7);
+  padding: 10px;
+  margin-bottom: 30px;
+}
+
+.rest-info i {
+}
+
+.rest-head h1 {
+  margin: 0;
+  font-family: 'Medula One', cursive;
+  font-size: 4em;
+}
+
+/* COMMON */
+button {
+  background-color: rgb(207, 58, 36);
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  border: 1px solid white;
+  padding: 5px 10px;
+  margin: 10px 20px;
+}
+
+img {
+  width: 80%;
+  border: 0px;
+  border-radius: 5px;
+}
+
+.footer-limit {
+  height: 80px;
+}
+
+h2 {
+  font-family: 'Medula One', cursive;
+}

@@ -12,7 +12,7 @@ import { FileUploader } from "ng2-file-upload";
 export class LobbyComponent implements OnInit {
   private lobbyUser = {role : ''};
   private restaurants: Array<Object>;
-  newRestaurant = {name: '', description: ''};
+  newRestaurant = {name: '', description: '', openTime: '' , closeTime: ''};
   uploader: FileUploader = new FileUploader({
     url: `http://localhost:3000/api/restaurant/new`
   });
@@ -34,9 +34,12 @@ export class LobbyComponent implements OnInit {
   }
 
   restNew(){
+    console.log(typeof(this.newRestaurant.openTime))
     this.uploader.onBuildItemForm = (item, form) => {
         form.append('name', this.newRestaurant.name);
         form.append('description', this.newRestaurant.description);
+        form.append('openTime', this.newRestaurant.openTime);
+        form.append('closeTime', this.newRestaurant.closeTime);
       };
       this.uploader.uploadAll();
     }
