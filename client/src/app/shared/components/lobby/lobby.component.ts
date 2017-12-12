@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { RestaurantService } from '../../services/restaurant.service';
 import { FileUploader } from "ng2-file-upload";
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-lobby',
@@ -17,7 +18,7 @@ export class LobbyComponent implements OnInit {
     url: `http://localhost:3000/api/restaurant/new`
   });
 
-  constructor(private router : Router, private userService : UserService,  private restaurantService : RestaurantService,) {
+  constructor(public service: NotificationsService, private router : Router, private userService : UserService,  private restaurantService : RestaurantService,) {
     this.userService.fillUser().subscribe(user => {
       this.lobbyUser = user
       if(this.lobbyUser.role == 'Customer') {
@@ -33,14 +34,25 @@ export class LobbyComponent implements OnInit {
   ngOnInit() {
   }
 
-  restNew(){
-    console.log(typeof(this.newRestaurant.openTime))
+  restNew() {
+    this.service.success('Restaurant Created!', 'You can now start managing it!', {
+       timeOut: 3000,
+       showProgressBar: true,
+       clickToClose: true
+     });
     this.uploader.onBuildItemForm = (item, form) => {
         form.append('name', this.newRestaurant.name);
         form.append('description', this.newRestaurant.description);
         form.append('openTime', this.newRestaurant.openTime);
         form.append('closeTime', this.newRestaurant.closeTime);
       };
-      this.uploader.uploadAll();
+    this.uploader.uploadAll();
+    setTimeout(function(){
+      this.userService.fillUser().subscribe(user => {
+        this.lobbyUser = user;
+      });
+    }.bind(this), 2500);
+    this.newRestaurant = {name: '', description: '', openTime: '' , closeTime: ''};
     }
+
   }

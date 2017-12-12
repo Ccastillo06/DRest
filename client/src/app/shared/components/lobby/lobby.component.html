@@ -1,3 +1,5 @@
+<simple-notifications></simple-notifications>
+
 <div class="lobby-body" *ngIf="lobbyUser">
   <div class="lobby-head">
     <h1>DRest Lobby</h1>
@@ -9,10 +11,13 @@ Manage your businesses!<i class="fa fa-bookmark" aria-hidden="true"></i>
 </h4>
   </div>
 
-  <div class="lobby-content" *ngIf="restaurants">
+  <div class="lobby-content" *ngIf="restaurants || lobbyUser.restaurants">
     <div *ngIf="lobbyUser.role=='Owner'">
       <div class="restaurant-preview" *ngFor="let restaurant of lobbyUser.restaurants">
-
+          <a [routerLink]="['/restaurant',restaurant.name]">
+          <img src={{restaurant.image}} alt="restaurant-photo">
+          <h3>{{restaurant.name}}</h3>
+          </a>
       </div>
     </div>
     <div *ngIf="lobbyUser.role=='Customer'">
