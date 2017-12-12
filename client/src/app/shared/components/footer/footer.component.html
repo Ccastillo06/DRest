@@ -1,0 +1,30 @@
+<footer class="footer-list">
+  <div class="footer-icon">
+    <i class="fa fa-home" aria-hidden="true"></i>
+    <p>Lobby</p>
+  </div>
+  <div class="footer-icon">
+    <div *ngIf="user.role=='Owner'">
+      <i class="fa fa-list" aria-hidden="true"></i>
+      <p>Products</p>
+    </div>
+    <div *ngIf="user.role=='Customer'">
+      <i class="fa fa-list novalid" aria-hidden="true"></i>
+      <p class="novalid">Products</p>
+    </div>
+  </div>
+  <div class="footer-icon">
+    <div *ngIf="user.role=='Owner'">
+      <i class="fa fa-database" aria-hidden="true"></i>
+      <p>Data</p>
+    </div>
+    <div *ngIf="user.role=='Customer'">
+      <i class="fa fa-database novalid" aria-hidden="true"></i>
+      <p class="novalid">Data</p>
+    </div>
+  </div>
+  <div (click)="userLogout()" class="footer-icon">
+    <i class="fa fa-sign-out" aria-hidden="true"></i>
+    <p>Logout</p>
+  </div>
+</footer>

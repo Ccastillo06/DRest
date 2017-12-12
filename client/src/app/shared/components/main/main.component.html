@@ -1,6 +1,6 @@
 <simple-notifications></simple-notifications>
 
-<div class="main-banner">
+<div class="main-banner" id="main-top">
   <h2>Welcome to</h2>
   <h1>DRest!</h1>
   <div class="main-users">
@@ -31,7 +31,7 @@
     </div>
     <div class="main-separator">
       <hr>
-      <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+      <a pageScroll href="#main-bottom" [pageScrollDuration]="800"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></a>
       <hr>
     </div>
     <h1>Look for the best Restaurant</h1>
@@ -53,7 +53,7 @@
     </div>
     <div class="main-separator">
       <hr>
-      <i id='scroll-up' class="fa fa-eject" aria-hidden="true"></i>
+      <a pageScroll href="#main-top" [pageScrollDuration]="300"><i id='main-bottom' class="fa fa-eject" aria-hidden="true"></i></a>
       <hr>
     </div>
 </div>

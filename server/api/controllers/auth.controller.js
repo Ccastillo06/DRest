@@ -198,3 +198,12 @@ module.exports.ownerPetition = (req, res, next) => {
     res.status(200).json({message: 'Signed up'})
   }
 }
+
+module.exports.userData = (req, res, next) => {
+  if(req.user){
+    User.findById(req.user._id)
+      .populate('restaurants')
+      .then(user => res.status(200).json(user))
+      .catch(e => res.status(500).json(e))
+  }
+}

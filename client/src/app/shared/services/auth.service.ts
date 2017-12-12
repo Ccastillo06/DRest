@@ -14,7 +14,8 @@ export class AuthService {
   }
 
   isAuthenticated() {
-    return this.user !== null && this.user !== undefined;
+    return this.http.get(`${this.baseUrl}/loggedin`, this.options)
+      .map(res => res.json())
   }
 
   userSignUp(user): Observable<any> {
@@ -28,6 +29,10 @@ export class AuthService {
 
   userLogin(user): Observable<any> {
     return this.http.post(`${this.baseUrl}/login`, JSON.stringify(user), this.options)
+  }
+
+  userLogout(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/logout`, this.options)
   }
 
   protected handleError(error: Response | any): Observable<any> {

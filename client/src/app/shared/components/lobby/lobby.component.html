@@ -1,0 +1,68 @@
+<div class="lobby-body" *ngIf="lobbyUser">
+  <div class="lobby-head">
+    <h1>DRest Lobby</h1>
+    <h4 *ngIf='lobbyUser.role=="Customer"'><i class="fa fa-cutlery" aria-hidden="true"></i>
+What's your plan today {{lobbyUser.username}}?<i class="fa fa-glass" aria-hidden="true"></i>
+</h4>
+    <h4 *ngIf='lobbyUser.role=="Owner"'><i class="fa fa-bookmark" aria-hidden="true"></i>
+Manage your businesses!<i class="fa fa-bookmark" aria-hidden="true"></i>
+</h4>
+  </div>
+
+  <div class="lobby-content" *ngIf="restaurants">
+    <div *ngIf="lobbyUser.role=='Owner'">
+      <div class="restaurant-preview" *ngFor="let restaurant of lobbyUser.restaurants">
+
+      </div>
+    </div>
+    <div *ngIf="lobbyUser.role=='Customer'">
+      <div class="restaurant-preview" *ngFor="let restaurant of lobbyUser.restaurants">
+
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="lobbyUser.role=='Owner'">
+    <div class="restaurant-add">
+      <i data-toggle="modal" data-target="#restModal" class="fa fa-plus-circle" aria-hidden="true"></i>
+      <p>Add a new bar or restaurant</p>
+    </div>
+  </div>
+</div>
+
+
+<app-footer></app-footer>
+
+<div class="container">
+  <!-- Modal -->
+  <div class="modal fade" id="restModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title"><i class="fa fa-cutlery" aria-hidden="true"></i>Create Restaurant<i class="fa fa-cutlery" aria-hidden="true"></i></h1>
+        </div>
+        <form (ngSubmit)="restNew()" #restForm="ngForm">
+            <div class="modal-body">
+                <div class="modal-input">
+                  <label for="name">Name</label><br>
+                  <input type="text" name="name" [(ngModel)]="newRestaurant.name" required>
+                </div>
+                <div class="modal-input">
+                  <label for="description">Description</label><br>
+                  <textarea type="text" name="description" [(ngModel)]="newRestaurant.description" required></textarea>
+                </div>
+                <div class="modal-input">
+                  <label for="file">Photo</label><br>
+                  <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <button type="submit" [disabled]="!restForm.valid" data-toggle="modal" data-target="#restModal">Create</button>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+</div>

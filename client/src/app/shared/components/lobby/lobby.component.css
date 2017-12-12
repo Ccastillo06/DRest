@@ -1,0 +1,66 @@
+.lobby-body {
+  text-align: center;
+  color: #0d0a0a;
+}
+
+.lobby-head {
+  color: white;
+  background-color: rgba(207, 58, 36, 0.7);
+  padding: 10px;
+}
+
+.lobby-head i {
+  margin: 0 10px;
+}
+
+.lobby-head h1 {
+  margin: 0;
+  font-family: 'Medula One', cursive;
+  margin-bottom: 10px;
+  font-size: 4em;
+}
+
+.restaurant-add {
+  margin-top: 20px;
+  font-size: 1em;
+}
+
+.restaurant-add i {
+  margin-bottom: 10px;
+  color: rgba(207, 58, 36, 0.7);
+  font-size: 3em;
+}
+
+/*Modal Content*/
+.modal-body {
+  text-align: center;
+}
+
+.modal-header {
+  text-align: center;
+}
+.modal-title {
+  font-family: 'Medula One', cursive;
+}
+
+.modal-title i {
+  font-size: 0.6em;
+  margin: 0 10px;
+}
+
+.modal-input {
+  margin: 15px;
+}
+
+.modal-input input, textarea{
+  width: 80%;
+}
+
+.modal-input label {
+  margin: 5px;
+}
+
+.close {
+  float: left;
+  padding: 5px 10px;
+}

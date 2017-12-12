@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { NotificationsService } from 'angular2-notifications';
-declare var jQuery:any;
-declare var $:any;
 
 @Component({
   selector: 'app-main',
@@ -53,7 +51,7 @@ export class MainComponent implements OnInit {
       this.authService.userLogin(this.userLog)
         .subscribe(
           (res) => {
-            console.log(res)
+            this.router.navigate(['/lobby']);
            },
            (error) => {
              this.service.error('Login Failed!', 'Wrong Email or password', {
