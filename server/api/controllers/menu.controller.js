@@ -40,10 +40,8 @@ module.exports.addProduct = (req, res, next) => {
 }
 
 module.exports.listMenu = (req, res, next) => {
-  Restaurant.findById(req.params.id)
-    .then(restaurant => {
-      Menu.findById(restaurant.menu)
-        .then(menu => res.status(200).json(menu.productArray))
-    })
-    .catch(e => res.status(500).json({ message: 'Something went wrong'}))
+    Menu.findById(req.params.id)
+      .populate('productArray._id')
+      .then(menu => res.status(200).json(menu.productArray))
+      .catch(e => res.status(500).json({ message: 'Something went wrong'}))
 }

@@ -9,6 +9,9 @@ const productSchema = new Schema({
   image: {type: String},
   classification: {type:String, required: true, enum: CLASSES},
   denomination: {type: String, required: true, enum: DENOM},
+  quantity: {type: Number},
+  inventory_price: {type: Number},
+  menu_price: {type: Number},
   owner: {type: Schema.Types.ObjectId, ref:'User', required: true},
 })
 

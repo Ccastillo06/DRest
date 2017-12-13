@@ -27,7 +27,7 @@ module.exports.addNew = (req, res, next) => {
     res.status(401).json({ message: 'Unauthorized'})
     return
   }
-  const {name, description, classification, denomination} = req.body;
+  const {name, description, classification, denomination, quantity, menu_price, inventory_price} = req.body;
   const owner = req.user._id;
   const image = `${req.file.url}`;
   const theProduct = new Product({
@@ -37,6 +37,9 @@ module.exports.addNew = (req, res, next) => {
     description,
     owner,
     image,
+    quantity,
+    menu_price,
+    inventory_price,
   })
   theProduct.save()
     .then( product => res.status(200).json(product))
@@ -48,7 +51,7 @@ module.exports.editProduct = (req, res, next) => {
     res.status(401).json({ message: 'Unauthorized'})
     return
   }
-  const {name, description, classification, denomination} = req.body;
+  const {name, description, classification, denomination, quantity, menu_price, inventory_price} = req.body;
   const image = `${req.file.url}`;
   const editProduct = {
     name,
@@ -56,6 +59,9 @@ module.exports.editProduct = (req, res, next) => {
     denomination,
     description,
     image,
+    quantity,
+    menu_price,
+    inventory_price,
   }
   Product.findByIdAndUpdate(req.params.id, editProduct, {new: true} )
     .then( product => res.status(200).json(product))
