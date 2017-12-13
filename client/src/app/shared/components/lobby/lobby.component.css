@@ -5,7 +5,7 @@
 
 .lobby-head {
   color: white;
-  background-color: rgba(207, 58, 36, 0.7);
+  background-color: rgba(207, 58, 36, 0.8);
   padding: 10px;
   margin-bottom: 20px;
 }
@@ -28,12 +28,12 @@
 
 .restaurant-add i {
   margin-bottom: 10px;
-  color: rgba(207, 58, 36, 0.7);
+  color: rgba(207, 58, 36, 0.8);
   font-size: 3em;
 }
 
 button {
-  background-color: rgb(207, 58, 36);
+  background-color: rgba(207, 58, 36, 0.8);
   color: white;
   font-weight: bold;
   border-radius: 5px;

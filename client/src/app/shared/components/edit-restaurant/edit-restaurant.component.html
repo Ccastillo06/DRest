@@ -1,0 +1,26 @@
+<simple-notifications></simple-notifications>
+
+<div class="edit-res-body" *ngIf="restaurant">
+  <div class="edit-res-head">
+  <h1>{{restaurant.name}}</h1>
+</div>
+<div class="edit-res-info">
+  <img src="{{restaurant.image}}" alt="restaurant-photo">
+  <div class="info-buttons">
+    <h2>For the public:</h2>
+    <div class="info-buttons-edit">
+      <button>Menu</button>
+      <button>Edit</button>
+    </div>
+    <h2>Management:</h2>
+    <div class="info-buttons-edit">
+      <button>Inventory</button>
+      <button>Tickets</button>
+      <button>Team</button>
+      <button>Tables</button>
+    </div>
+  </div>
+</div>
+
+<div class="footer-limit"></div>
+<app-footer></app-footer>

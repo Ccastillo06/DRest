@@ -38,7 +38,7 @@ a {
 }
 
 button {
-  background-color: rgb(207, 58, 36);
+  background-color: rgba(207, 58, 36, 0.8);
   color: white;
   font-weight: bold;
   border-radius: 5px;
@@ -73,7 +73,7 @@ button {
 
 .main-separator {
   font-size: 2em;
-  color: rgba(207, 58, 36, 0.7);
+  color: rgba(207, 58, 36, 0.8);
   margin-top: 40px;
 }
 

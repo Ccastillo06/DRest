@@ -11,6 +11,7 @@ import { MainComponent } from './shared/components/main/main.component';
 import { LobbyComponent } from './shared/components/lobby/lobby.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { RestaurantComponent } from './shared/components/restaurant/restaurant.component';
+import { EditRestaurantComponent } from './shared/components/edit-restaurant/edit-restaurant.component';
 
 import { AuthService } from './shared/services/auth.service'
 import { UserService } from './shared/services/user.service'
@@ -28,7 +29,8 @@ import { FileUploadModule } from 'ng2-file-upload';
     MainComponent,
     LobbyComponent,
     FooterComponent,
-    RestaurantComponent
+    RestaurantComponent,
+    EditRestaurantComponent
   ],
   imports: [
     BrowserModule,

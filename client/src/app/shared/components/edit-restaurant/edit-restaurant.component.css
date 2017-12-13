@@ -1,22 +1,29 @@
-.rest-body {
+.edit-res-body {
   text-align: center;
   color: #0d0a0a;
 }
 
-.rest-head {
+.edit-res-head {
   color: white;
   background-color: rgba(207, 58, 36, 0.8);
   padding: 10px;
   margin-bottom: 30px;
 }
 
-.rest-info i {
+.edit-res-info i {
 }
 
-.rest-head h1 {
+.edit-res-head h1 {
   margin: 0;
   font-family: 'Medula One', cursive;
   font-size: 4em;
+}
+
+.info-buttons-edit {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
 }
 
 /* COMMON */
@@ -27,7 +34,7 @@ button {
   border-radius: 5px;
   border: 1px solid white;
   padding: 5px 10px;
-  margin: 10px 20px;
+  margin: 10px;
 }
 
 img {
