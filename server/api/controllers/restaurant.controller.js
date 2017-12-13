@@ -15,7 +15,8 @@ module.exports.getAll = (req, res, next) => {
 }
 
 module.exports.getInfo = (req, res, next) => {
-  Restaurant.findOne({name: req.params.name})
+  console.log(req.params.id)
+  Restaurant.findById(req.params.id)
     .then( restaurant => {
       debug(`Found Restaurant: ${restaurant.name}`);
       res.status(200).json(restaurant);
@@ -27,7 +28,6 @@ module.exports.getInfo = (req, res, next) => {
 
 module.exports.newRestaurant = (req, res, next) => {
   const {name, description, openTime, closeTime} = req.body;
-  console.log(req.file)
   const image = `${req.file.url}`;
   const owner = req.user._id;
 
@@ -64,4 +64,23 @@ module.exports.newRestaurant = (req, res, next) => {
   .catch(e => {
       res.status(500).json({ message: 'Something went wrong' });
   });
+}
+
+module.exports.editRestaurant = (req, res, next) => {
+  if(req.user.role!='Owner') {
+    res.status(401).json({ message: 'Unauthorized'})
+    return
+  }
+  const {name, description, openTime, closeTime} = req.body;
+  const image = `${req.file.url}`;
+  const editRest = {
+    name,
+    image,
+    description,
+    openTime,
+    closeTime,
+  }
+  Restaurant.findByIdAndUpdate(req.params.id, editRest, {new: true} )
+    .then( restaurant => res.status(200).json(restaurant))
+    .catch( e => res.status(500).json({ message: 'Something went wrong'}))
 }

@@ -16,7 +16,8 @@ var storage = cloudinaryStorage({
 var parser = multer({ storage: storage });
 
 router.get('/all', RestaurantController.getAll);
-router.get('/info/:name', RestaurantController.getInfo);
+router.get('/info/:id', RestaurantController.getInfo);
 router.post('/new', parser.single('file'), RestaurantController.newRestaurant);
+router.post('/edit/:id', parser.single('file'), RestaurantController.editRestaurant);
 
 module.exports = router;
