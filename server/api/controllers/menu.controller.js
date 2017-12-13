@@ -4,12 +4,9 @@ const Restaurant = require('../models/restaurant.model');
 const Product = require('../models/product.model');
 const debug = require('debug')('server:Menu');
 
-isAuthorized = (user) => {
-  return (user.role == 'Owner')? true : false
-}
 
 module.exports.createNew = (req, res, next) => {
-  if(!isAuthorized) {
+  if(req.user.role != 'Owner') {
     res.status(401).json({message: 'Unauthorized'})
     return
   }
@@ -23,7 +20,7 @@ module.exports.createNew = (req, res, next) => {
 }
 
 module.exports.addProduct = (req, res, next) => {
-  if(!isAuthorized) {
+  if(req.user.role != 'Owner') {
     res.status(401).json({message: 'Unauthorized'})
     return
   }
@@ -47,6 +44,6 @@ module.exports.listMenu = (req, res, next) => {
     .then(restaurant => {
       Menu.findById(restaurant.menu)
         .then(menu => res.status(200).json(menu.productArray))
-    })  
+    })
     .catch(e => res.status(500).json({ message: 'Something went wrong'}))
 }
