@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const CLASSES = ['Food', 'Fish', 'Utils'];
+const CLASSES = ['Food', 'Fish', 'Drink', 'Utils'];
 const DENOM = ['Meat', 'Fish', 'Sauce', 'Condiment', 'Fruit', 'Vegetable', 'Cereal', 'Alcohol', 'Alcohol-Free'];
 
 const productSchema = new Schema({

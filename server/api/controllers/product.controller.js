@@ -2,12 +2,8 @@ const express = require('express');
 const Product = require('../models/product.model');
 const debug = require('debug')('server:Product');
 
-isAuthorized = (user) => {
-  return (user.role == 'Owner')? true : false
-}
-
 module.exports.getList = (req, res, next) => {
-  if(!isAuthorized(req.user)) {
+  if(req.user.role!='Owner') {
     res.status(401).json({ message: 'Unauthorized'})
     return
   }
@@ -17,17 +13,20 @@ module.exports.getList = (req, res, next) => {
 }
 
 module.exports.addNew = (req, res, next) => {
-  if(!isAuthorized(req.user)) {
+  if(req.user.role!='Owner') {
     res.status(401).json({ message: 'Unauthorized'})
     return
   }
-  const {name, classification, denomination} = req.body;
+  const {name, description, classification, denomination} = req.body;
   const owner = req.user._id;
+  const image = `${req.file.url}`;
   const theProduct = new Product({
     name,
     classification,
     denomination,
+    description,
     owner,
+    image,
   })
   theProduct.save()
     .then( product => res.status(200).json(product))
@@ -35,7 +34,7 @@ module.exports.addNew = (req, res, next) => {
 }
 
 module.exports.editProduct = (req, res, next) => {
-  if(!isAuthorized(req.user)) {
+  if(req.user.role!='Owner') {
     res.status(401).json({ message: 'Unauthorized'})
     return
   }
@@ -52,7 +51,7 @@ module.exports.editProduct = (req, res, next) => {
 }
 
 module.exports.deleteProduct = (req, res, next) => {
-  if(!isAuthorized(req.user)) {
+  if(req.user.role!='Owner') {
     res.status(401).json({ message: 'Unauthorized'})
     return
   }
