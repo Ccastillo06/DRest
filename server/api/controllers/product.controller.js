@@ -12,6 +12,16 @@ module.exports.getList = (req, res, next) => {
     .catch(e => res.status(500).json({ message: 'Something went wrong'}))
 }
 
+module.exports.getOneProduct = (req, res, next) => {
+  if(req.user.role!='Owner') {
+    res.status(401).json({ message: 'Unauthorized'})
+    return
+  }
+  Product.findById(req.params.id)
+    .then(product => res.status(200).json(product))
+    .catch(e => res.status(500).json({ message: 'Something went wrong'}))
+}
+
 module.exports.addNew = (req, res, next) => {
   if(req.user.role!='Owner') {
     res.status(401).json({ message: 'Unauthorized'})
@@ -38,12 +48,14 @@ module.exports.editProduct = (req, res, next) => {
     res.status(401).json({ message: 'Unauthorized'})
     return
   }
-  const {name, classification, denomination, description} = req.body;
+  const {name, description, classification, denomination} = req.body;
+  const image = `${req.file.url}`;
   const editProduct = {
     name,
     classification,
     denomination,
-    description
+    description,
+    image,
   }
   Product.findByIdAndUpdate(req.params.id, editProduct, {new: true} )
     .then( product => res.status(200).json(product))
@@ -55,7 +67,7 @@ module.exports.deleteProduct = (req, res, next) => {
     res.status(401).json({ message: 'Unauthorized'})
     return
   }
-  Product.findByIdAndRemove(req.params.id)
-    .then(removed => res.status(200).json(removed))
+  Product.findByIdAndRemove(req.body.id)
+    .then(() => res.status(200).json({message: 'Deleted'}))
     .catch(e => res.status(500).json({ message: 'Something went wrong'}))
 }
