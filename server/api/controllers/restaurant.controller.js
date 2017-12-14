@@ -15,8 +15,8 @@ module.exports.getAll = (req, res, next) => {
 }
 
 module.exports.getInfo = (req, res, next) => {
-  console.log(req.params.id)
   Restaurant.findById(req.params.id)
+    .populate("menu")
     .then( restaurant => {
       debug(`Found Restaurant: ${restaurant.name}`);
       res.status(200).json(restaurant);
@@ -83,4 +83,14 @@ module.exports.editRestaurant = (req, res, next) => {
   Restaurant.findByIdAndUpdate(req.params.id, editRest, {new: true} )
     .then( restaurant => res.status(200).json(restaurant))
     .catch( e => res.status(500).json({ message: 'Something went wrong'}))
+}
+
+module.exports.editMenu = (req, res, next) => {
+  if(req.user.role!='Owner') {
+    res.status(401).json({ message: 'Unauthorized'})
+    return
+  }
+  Restaurant.findByIdAndUpdate(req.body.resId, {$pull: {menu: req.body.prodId}}, {new: true})
+  .then( restaurant => res.status(200).json(restaurant))
+  .catch( e => res.status(500).json({ message: 'Something went wrong'}))
 }

@@ -13,8 +13,7 @@ const restaurantSchema = new Schema({
   image: {type: String, default: ''},
   owner: {type: Schema.Types.ObjectId, ref:'User', required: true},
   workers: [{type: Schema.Types.ObjectId, ref:'User'}],
-  inventory: {type: Schema.Types.ObjectId, ref:'Inventory'},
-  menu: {type: Schema.Types.ObjectId, ref:'Menu'},
+  menu: [{type: Schema.Types.ObjectId, ref:'Product'}],
   tables: [{type: Schema.Types.ObjectId, ref:'Table'}],
   tickets: [{type: Schema.Types.ObjectId, ref:'Tickets'}],
 }, {

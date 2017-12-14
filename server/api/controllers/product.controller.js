@@ -1,5 +1,7 @@
 const express = require('express');
 const Product = require('../models/product.model');
+const Restaurant = require('../models/restaurant.model');
+const User = require('../models/user.model');
 const debug = require('debug')('server:Product');
 
 module.exports.getList = (req, res, next) => {
@@ -75,5 +77,19 @@ module.exports.deleteProduct = (req, res, next) => {
   }
   Product.findByIdAndRemove(req.body.id)
     .then(() => res.status(200).json({message: 'Deleted'}))
+    .catch(e => res.status(500).json({ message: 'Something went wrong'}))
+}
+
+module.exports.addToMenu = (req, res, next) => {
+  if(req.user.role!='Owner') {
+    res.status(401).json({ message: 'Unauthorized'})
+    return
+  }
+  console.log(req.body)
+  Restaurant.findByIdAndUpdate(req.body.resId, {$push: {menu: req.body.prodId}}, {new: true})
+    .then(restaurant => {
+      console.log(restaurant)
+      res.status(200).json(restaurant)
+    })
     .catch(e => res.status(500).json({ message: 'Something went wrong'}))
 }

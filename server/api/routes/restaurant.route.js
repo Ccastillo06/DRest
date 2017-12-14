@@ -19,5 +19,6 @@ router.get('/all', RestaurantController.getAll);
 router.get('/info/:id', RestaurantController.getInfo);
 router.post('/new', parser.single('file'), RestaurantController.newRestaurant);
 router.post('/edit/:id', parser.single('file'), RestaurantController.editRestaurant);
+router.post('/editmenu', RestaurantController.editMenu)
 
 module.exports = router;
