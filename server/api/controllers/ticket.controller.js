@@ -63,7 +63,7 @@ module.exports.freeOrders = (req, res, next) => {
     res.status(401).json({ message : 'Unauthorized'});
     return
   }
-  Table.findByIdAndUpdate(req.body.table_id, { $set: { orders: [] }}, {new: true})
+  Table.findByIdAndUpdate(req.params.table_id, { $set: { orders: [] }}, {new: true})
     .then(table => res.status(200).json(table))
     .catch(e => res.status(500).json({ message: 'Something went wrong'}))
 }
