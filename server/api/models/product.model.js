@@ -12,6 +12,7 @@ const productSchema = new Schema({
   quantity: {type: Number},
   inventory_price: {type: Number},
   menu_price: {type: Number},
+  menu_qty: {type:Number, default: 0},
   owner: {type: Schema.Types.ObjectId, ref:'User', required: true},
 })
 

@@ -8,7 +8,7 @@ const tableSchema = new Schema({
   zone: {type: String, enum: ZONES, required: true},
   orders: [{
     _id: {type: Schema.Types.ObjectId, ref:'Product'},
-    qty: {type: Number}
+    qty: {type: String}
   }]
 },{
   timestamps: true,
