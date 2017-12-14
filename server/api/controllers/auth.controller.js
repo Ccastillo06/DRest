@@ -122,7 +122,7 @@ module.exports.loggedIn = (req, res, next) => {
 
 // Owner can add waiter or manager.
 module.exports.addWorker = (req, res, next) => {
-  const {username, password, role} = req.body;
+  const {username, email, password, role} = req.body;
   if ((role!="Waiter" && role!="Manager") || req.user.role!='Owner') {
       res.status(403).json({ message: 'Unauthorized' });
       return;
@@ -136,6 +136,7 @@ module.exports.addWorker = (req, res, next) => {
 
   const theUser = new User({
     username,
+    email,
     password: hashPass,
     role,
     works_in: req.params.id,
@@ -145,7 +146,8 @@ module.exports.addWorker = (req, res, next) => {
     .then(worker => {
         debug('Sign Worker Up Correct!')
         Restaurant.findByIdAndUpdate(req.params.id, {$push: {workers: worker._id}}, {new: true})
-          .then(restaurant => res.status(200).json(restaurant.workers))
+          .populate("workers")
+          .then(restaurant => res.status(200).json(restaurant))
       })
     .catch(e => {
         res.status(500).json({ message: 'Something went wrong' });
@@ -164,6 +166,7 @@ module.exports.deleteWorker = (req, res, next) => {
         return;
       }
       Restaurant.findByIdAndUpdate(restaurant._id, {$pull: {workers: req.params.worker_id}}, {new: true})
+        .populate("workers")
         .then(restaurant => res.status(200).json(restaurant))
       })
       .catch(e => {

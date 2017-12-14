@@ -17,6 +17,7 @@ module.exports.getAll = (req, res, next) => {
 module.exports.getInfo = (req, res, next) => {
   Restaurant.findById(req.params.id)
     .populate("menu")
+    .populate("workers")
     .then( restaurant => {
       debug(`Found Restaurant: ${restaurant.name}`);
       res.status(200).json(restaurant);
