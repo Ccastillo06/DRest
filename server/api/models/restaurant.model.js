@@ -15,7 +15,7 @@ const restaurantSchema = new Schema({
   workers: [{type: Schema.Types.ObjectId, ref:'User'}],
   menu: [{type: Schema.Types.ObjectId, ref:'Product'}],
   tables: [{type: Schema.Types.ObjectId, ref:'Table'}],
-  tickets: [{type: Schema.Types.ObjectId, ref:'Tickets'}],
+  tickets: [{type: Schema.Types.ObjectId, ref:'Ticket'}],
 }, {
   timestamps: true,
 });

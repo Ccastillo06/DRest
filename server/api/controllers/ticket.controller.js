@@ -7,6 +7,21 @@ const User = require('../models/user.model');
 const Product = require('../models/product.model');
 const nodemailer = require('nodemailer');
 
+module.exports.getAll = (req, res, next) => {
+  if(req.user.role!='Owner'){
+    res.status(401).json({ message : 'Unauthorized'});
+    return
+  }
+  console.log(req.params.restId)
+  Restaurant.findById(req.params.restId)
+  .populate("tickets")
+  .then(restaurant => {
+    console.log(restaurant)
+    res.status(200).json(restaurant.tickets)
+  })
+  .catch(e => res.status(500).json({message: 'Something went wrong!'}))
+}
+
 module.exports.generateTicket = (req, res, next) => {
   if(req.user.role!='Manager' || req.user.works_in != req.params.rest_id){
     res.status(401).json({ message : 'Unauthorized'});
