@@ -51,7 +51,8 @@ export class MainComponent implements OnInit {
       this.authService.userLogin(this.userLog)
         .subscribe(
           (res) => {
-            this.router.navigate(['/lobby']);
+            if(res.role=='Owner' || res.role=='Customer') this.router.navigate(['/lobby']);
+            if(res.role=='Manager' || res.role=='Waiter') this.router.navigate([`/tables/${res.works_in}`]);
            },
            (error) => {
              this.service.error('Login Failed!', 'Wrong Email or password', {

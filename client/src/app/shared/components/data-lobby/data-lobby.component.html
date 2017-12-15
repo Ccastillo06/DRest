@@ -1,0 +1,18 @@
+<div class="lobby-body" *ngIf="lobbyUser">
+  <div class="lobby-head">
+    <h1>Data Lobby</h1>
+  </div>
+  <div class="lobby-content" *ngIf="restaurants || lobbyUser.restaurants">
+    <div *ngIf="lobbyUser.role=='Owner'">
+      <div class="restaurant-preview" *ngFor="let restaurant of lobbyUser.restaurants">
+          <a [routerLink]="['/data',restaurant._id]">
+          <img src={{restaurant.image}} alt="restaurant-photo">
+          <h3>{{restaurant.name}}</h3>
+          </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-limit"></div>
+<app-footer></app-footer>

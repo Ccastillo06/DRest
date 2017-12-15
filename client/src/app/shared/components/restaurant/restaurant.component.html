@@ -14,7 +14,7 @@
   <h4>{{restaurant.openTime}}  -  {{restaurant.closeTime}}</h4>
 
   <div class="info-buttons">
-    <button>Menu</button>
+    <a [routerLink]="['/menu',restaurant._id]"><button>Menu</button></a>
     <button>Reserve</button>
   </div>
 </div>

@@ -3,27 +3,31 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs/Rx';
 
 @Injectable()
-export class UserService {
-  private baseUrl = `http://localhost:3000/api/auth`;
+export class ProductService {
+  private baseUrl = `http://localhost:3000/api/product`;
   private headers = new Headers({ 'Content-Type' : 'application/json'});
   private options = new RequestOptions({ headers: this.headers, withCredentials: true });
-  private user: Object;
+  private product: Object;
 
   constructor(private http: Http) {
   }
 
-  fillUser(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/userdata`, this.options)
+  getProducts() {
+    return this.http.get(`${this.baseUrl}/list`, this.options)
       .map(res => res.json())
   }
 
-  teamAdd(worker, resId): Observable<any> {
-    return this.http.post(`${this.baseUrl}/worker/${resId}`, JSON.stringify(worker) ,this.options)
+  getOneProduct(id):Observable<any>{
+    return this.http.get(`${this.baseUrl}/one/${id}`, this.options)
       .map(res => res.json())
   }
 
-  deleteThis(resId, workId): Observable<any> {
-      return this.http.post(`${this.baseUrl}/deleteworker/${resId}/${workId}`, {} ,this.options)
+  productDelete(id):Observable<any>{
+    return this.http.post(`${this.baseUrl}/delete`, {id} , this.options)
+  }
+
+  addProdToMenu(id, restaurant):Observable<any>{
+    return this.http.post(`${this.baseUrl}/tomenu`, {resId: restaurant, prodId: id}, this.options)
   }
 
   protected handleError(error: Response | any): Observable<any> {

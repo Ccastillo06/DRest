@@ -1,0 +1,35 @@
+<div class="menu-body" *ngIf="restaurant">
+  <div class="menu-head">
+  <h1>{{restaurant.name}} - Data</h1>
+  </div>
+  <div *ngIf="user.role=='Owner' && show" class="menu-info">
+    <h1>Average Ticket per Table</h1>
+    <h2>{{average}}€</h2>
+    <h2>from {{restaurant.tickets.length}} tickets</h2>
+    <h1>Food Percentage of Total</h1>
+    <div style="display: block">
+      <canvas baseChart
+                  [data]="doughnutChartData"
+                  [labels]="doughnutChartLabels"
+                  [chartType]="doughnutChartType"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)"></canvas>
+    </div>
+    <h1>Most Frequent Tables</h1>
+    <div>
+      <div style="display: block">
+        <canvas baseChart
+                [datasets]="barChartData"
+                [labels]="barChartLabels"
+                [options]="barChartOptions"
+                [legend]="barChartLegend"
+                [chartType]="barChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-limit"></div>
+<app-footer></app-footer>

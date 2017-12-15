@@ -1,0 +1,128 @@
+<simple-notifications></simple-notifications>
+<jaspero-confirmations></jaspero-confirmations>
+
+<div class="edit-res-body" *ngIf="product">
+  <div class="edit-res-head">
+    <h1>{{product.name}}</h1>
+  </div>
+  <div class="edit-res-info">
+    <img src="{{product.image}}" alt="Product-photo">
+    <h2>Description:</h2>
+    <h4>{{product.description}}</h4>
+    <div class="edit-res-prices">
+      <h2>Base Cost: {{product.inventory_price}} €</h2>
+      <h2>Price in Menu: {{product.menu_price}} €</h2>
+    </div>
+    <div class="info-buttons">
+      <div class="info-buttons-edit">
+        <button data-toggle="modal" data-target="#menuModal">To Menu</button>
+        <button data-toggle="modal" data-target="#prodModal">Edit</button>
+        <button (click)="prodDelete()">Delete</button>
+      </div>
+    </div>
+    <h2>Total Left: {{product.quantity}} units</h2>
+  </div>
+</div>
+
+<div class="footer-limit"></div>
+<app-footer></app-footer>
+
+
+<div class="container">
+  <!-- Modal -->
+  <div class="modal fade" id="prodModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Add New Product<i class="fa fa-shopping-cart" aria-hidden="true"></i></h1>
+        </div>
+        <form (ngSubmit)="prodEdit()" #prodForm="ngForm">
+            <div class="modal-body">
+                <div class="modal-input">
+                  <label for="name">Name</label><br>
+                  <input type="text" name="name" [(ngModel)]="product.name" required>
+                </div>
+                <div class="modal-input">
+                  <label for="description">Description</label><br>
+                  <textarea type="text" name="description" [(ngModel)]="product.description" required></textarea>
+                </div>
+                <div class="modal-input">
+                  <label for="classification">Classification</label>
+                  <select name="classification" [(ngModel)]="product.classification" required>
+                    <option value="Food">Food</option>
+                    <option value="Drink">Drink</option>
+                    <option value="Utils">Utils</option>
+                  </select>
+                </div>
+                <div class="modal-input">
+                  <label for="denomination">Denomination</label>
+                  <select name="denomination" [(ngModel)]="product.denomination" required>
+                    <option value="Meat">Meat</option>
+                    <option value="Fish">Fish</option>
+                    <option value="Sauce">Sauce</option>
+                    <option value="Fruit">Fruit</option>
+                    <option value="Vegetable">Vegetable</option>
+                    <option value="Cereal">Cereal</option>
+                    <option value="Alcohol">Alcohol</option>
+                    <option value="Alcohol-Free">Alcohol-Free</option>
+                  </select>
+                </div>
+                <div class="modal-input">
+                  <label for="inventory_price">Initial Cost</label><br>
+                  <input type="number" name="inventory_price" [(ngModel)]="product.inventory_price" required>
+                </div>
+                <div class="modal-input">
+                  <label for="menu_price">Price in Menu</label><br>
+                  <input type="number" name="menu_price" [(ngModel)]="product.menu_price" required>
+                </div>
+                <div class="modal-input">
+                  <label for="quantity">Quantity</label><br>
+                  <input type="number" name="quantity" [(ngModel)]="product.quantity" min="0" required>
+                </div>
+                <div class="modal-input">
+                  <label for="file">Photo</label><br>
+                  <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <button type="submit" [disabled]="!prodForm.valid" data-toggle="modal" data-target="#prodModal">Edit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+</div>
+
+
+
+<div class="container">
+  <!-- Modal -->
+  <div class="modal fade" id="menuModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title"><i class="fa fa-book" aria-hidden="true"></i>
+Add to Menu<i class="fa fa-book" aria-hidden="true"></i>
+</h1>
+        </div>
+        <form (ngSubmit)="prodToMenu()" #menuForm="ngForm">
+            <div class="modal-body">
+                <div class="modal-input">
+                  <label for="restaurant">Choose Restaurant</label>
+                  <select *ngIf="user" name="denomination" [(ngModel)]="restaurant" required>
+                    <option *ngFor="let rest of user.restaurants" value="{{rest._id}}">{{rest.name}}</option>
+                  </select>
+                </div>
+            <div class="modal-footer">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <button type="submit" [disabled]="!menuForm.valid" data-toggle="modal" data-target="#menuModal">Add</button>
+            </div>
+          </div>
+        </form>
+      </div>
+  </div>
+</div>
+</div>

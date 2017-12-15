@@ -1,0 +1,36 @@
+.menu-body {
+  text-align: center;
+  color: #0d0a0a;
+}
+
+.menu-head {
+  color: white;
+  background-color: rgba(207, 58, 36, 0.8);
+  padding: 10px;
+  margin-bottom: 30px;
+}
+
+.menu-head h1 {
+  margin: 0;
+  font-family: 'Medula One', cursive;
+  font-size: 4em;
+}
+
+img {
+  width: 80%;
+  border: 0px;
+  border-radius: 5px;
+}
+
+.footer-limit {
+  height: 80px;
+}
+
+h1 {
+  font-family: 'Medula One', cursive;
+}
+
+h2 {
+  font-family: 'Medula One', cursive;
+  margin: 10px;
+}

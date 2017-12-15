@@ -1,29 +1,42 @@
-.edit-res-body {
+.team-body {
   text-align: center;
   color: #0d0a0a;
 }
 
-.edit-res-head {
+.team-head {
   color: white;
   background-color: rgba(207, 58, 36, 0.8);
   padding: 10px;
   margin-bottom: 30px;
 }
 
-.edit-res-info i {
+.team-body i {
+  font-size: 0.7em;
+  margin: 0 10px;
+  color: rgba(13, 10, 10, 0.9)
 }
 
-.edit-res-head h1 {
+.team-head h1 {
   margin: 0;
   font-family: 'Medula One', cursive;
   font-size: 4em;
 }
 
-.info-buttons-edit {
-  margin: 0 auto;
+.team-list {
   display: flex;
+  align-items: flex-end;
   justify-content: space-around;
-  width: 50%;
+}
+
+.team-add {
+  margin-top: 20px;
+  font-size: 1em;
+}
+
+.team-add i {
+  margin-bottom: 10px;
+  color: rgba(207, 58, 36, 0.8);
+  font-size: 3em;
 }
 
 /* COMMON */
@@ -45,6 +58,10 @@ img {
 
 .footer-limit {
   height: 80px;
+}
+
+h1 {
+  font-family: 'Medula One', cursive;
 }
 
 h2 {

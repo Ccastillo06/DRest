@@ -1,0 +1,131 @@
+<simple-notifications></simple-notifications>
+
+<div class="product-body" *ngIf="productUser">
+  <div class="product-head">
+    <h1>{{productUser.username}}'s ProductList</h1>
+  </div>
+
+  <div class="product-content" *ngIf="productsArray">
+    <div class="product-sort" *ngIf="productUser.role=='Owner'">
+      <div class="product-buttons">
+        <button (click)="displayAll()">All</button>
+        <button (click)="displayFood()">Food</button>
+        <button (click)="displayDrink()">Drinks</button>
+        <button (click)="displayUtil()">Utils</button>
+      </div>
+      <div class="product-total-list">
+        <div class="product-preview" *ngIf="showAll">
+          <div *ngFor="let product of productsArray" class="product-single">
+            <a [routerLink]="['/products',product._id]">
+            <img src={{product.image}} alt="product-photo">
+            <h3>{{product.name}}</h3>
+            </a>
+          </div>
+        </div>
+        <div *ngIf="showFood" class="product-preview">
+          <div *ngFor="let food of foodArray" class="product-single">
+            <a [routerLink]="['/products',food._id]">
+            <img src={{food.image}} alt="product-photo">
+            <h3>{{food.name}}</h3>
+            </a>
+          </div>
+        </div>
+        <div class="product-preview" *ngIf="showDrink">
+          <div *ngFor="let drink of drinksArray" class="product-single">
+            <a [routerLink]="['/products',drink._id]">
+            <img src={{drink.image}} alt="product-photo">
+            <h3>{{drink.name}}</h3>
+            </a>
+          </div>
+        </div>
+        <div class="product-preview" *ngIf="showUtil">
+          <div *ngFor="let util of utilsArray" class="product-single">
+            <a [routerLink]="['/products',util._id]">
+            <img src={{util.image}} alt="product-photo">
+            <h3>{{util.name}}</h3>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="productUser.role=='Owner'">
+    <div class="product-add">
+      <i data-toggle="modal" data-target="#prodModal" class="fa fa-plus-circle" aria-hidden="true"></i>
+      <p>Add a new product to your list</p>
+    </div>
+  </div>
+</div>
+
+<div class="footer-limit"></div>
+<app-footer></app-footer>
+
+
+
+<div class="container">
+  <!-- Modal -->
+  <div class="modal fade" id="prodModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Add New Product<i class="fa fa-shopping-cart" aria-hidden="true"></i></h1>
+        </div>
+        <form (ngSubmit)="prodNew()" #prodForm="ngForm">
+            <div class="modal-body">
+                <div class="modal-input">
+                  <label for="name">Name</label><br>
+                  <input type="text" name="name" [(ngModel)]="newProduct.name" required>
+                </div>
+                <div class="modal-input">
+                  <label for="description">Description</label><br>
+                  <textarea type="text" name="description" [(ngModel)]="newProduct.description" required></textarea>
+                </div>
+                <div class="modal-input">
+                  <label for="classification">Classification</label>
+                  <select name="classification" [(ngModel)]="newProduct.classification" required>
+                    <option value="Food">Food</option>
+                    <option value="Drink">Drink</option>
+                    <option value="Utils">Utils</option>
+                  </select>
+                </div>
+                <div class="modal-input">
+                  <label for="denomination">Denomination</label>
+                  <select name="denomination" [(ngModel)]="newProduct.denomination" required>
+                    <option value="Meat">Meat</option>
+                    <option value="Fish">Fish</option>
+                    <option value="Sauce">Sauce</option>
+                    <option value="Fruit">Fruit</option>
+                    <option value="Vegetable">Vegetable</option>
+                    <option value="Cereal">Cereal</option>
+                    <option value="Alcohol">Alcohol</option>
+                    <option value="Alcohol-Free">Alcohol-Free</option>
+                  </select>
+                </div>
+                <div class="modal-input">
+                  <label for="inventory_price">Initial Cost</label><br>
+                  <input type="number" name="inventory_price" [(ngModel)]="newProduct.inventory_price" required>
+                </div>
+                <div class="modal-input">
+                  <label for="menu_price">Price in Menu</label><br>
+                  <input type="number" name="menu_price" [(ngModel)]="newProduct.menu_price" required>
+                </div>
+                <div class="modal-input">
+                  <label for="quantity">Quantity</label><br>
+                  <input type="number" name="quantity" [(ngModel)]="newProduct.quantity" min="0" required>
+                </div>
+                <div class="modal-input">
+                  <label for="file">Photo</label><br>
+                  <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <button type="submit" [disabled]="!prodForm.valid" data-toggle="modal" data-target="#prodModal">Create</button>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+</div>

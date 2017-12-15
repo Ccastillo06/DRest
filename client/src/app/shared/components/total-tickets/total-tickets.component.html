@@ -1,0 +1,31 @@
+<simple-notifications></simple-notifications>
+<jaspero-confirmations></jaspero-confirmations>
+
+<div class="menu-body" *ngIf="restaurant">
+  <div class="menu-head">
+  <h1>{{restaurant.name}} - Tickets</h1>
+  </div>
+  <div *ngIf="user.role=='Owner' && seeList" class="menu-info">
+    <div class="menu-list" *ngFor="let ticket of ticketArray">
+      <div (click)="showTicket(ticket._id)">
+        <h2>Date: {{ticket.createdAt}}</h2>
+        <div class="menu-detail">
+          <h3>Table: {{ticket.table_name}}</h3>
+          <h3>Total_price: {{ticket.total_price}}€</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="user.role=='Owner' && seeTicket" class="menu-info">
+    <div (click)="inverse()">
+      <h1>Table: {{oneTicket.table_name}}</h1>
+      <div class="menu-hidden-list" *ngFor="let food of oneTicket.total_order">
+        <h2>{{food.name}}............{{food.amount}} units...............{{food.price}}€</h2>
+      </div>
+      <h1>Total Cost: {{oneTicket.total_price}}€</h1>
+    </div>
+  </div>
+</div>
+
+<div class="footer-limit"></div>
+<app-footer></app-footer>

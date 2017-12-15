@@ -1,26 +1,38 @@
 <footer class="footer-list">
   <div class="footer-icon">
-    <a [routerLink]="['/lobby']">
-      <i class="fa fa-home" aria-hidden="true"></i>
-      <p>Lobby</p>
-    </a>
+    <div *ngIf="user.role!='Manager' && user.role!='Waiter'">
+      <a [routerLink]="['/lobby']">
+        <i class="fa fa-home" aria-hidden="true"></i>
+        <p>Lobby</p>
+      </a>
+    </div>
+    <div *ngIf="user.role=='Manager' || user.role=='Waiter'">
+      <a [routerLink]="['/tables', user.works_in]">
+        <i class="fa fa-window-maximize" aria-hidden="true"></i>
+        <p>Tables</p>
+      </a>
+    </div>
   </div>
   <div class="footer-icon">
     <div *ngIf="user.role=='Owner'">
-      <i class="fa fa-list" aria-hidden="true"></i>
-      <p>Products</p>
+      <a [routerLink]="['/products']">
+        <i class="fa fa-list" aria-hidden="true"></i>
+        <p>Products</p>
+      </a>
     </div>
-    <div *ngIf="user.role=='Customer'">
+    <div *ngIf="user.role!='Owner'">
       <i class="fa fa-list novalid" aria-hidden="true"></i>
       <p class="novalid">Products</p>
     </div>
   </div>
   <div class="footer-icon">
     <div *ngIf="user.role=='Owner'">
-      <i class="fa fa-database" aria-hidden="true"></i>
-      <p>Data</p>
+      <a [routerLink]="['/data-lobby']">
+        <i class="fa fa-database" aria-hidden="true"></i>
+        <p>Data</p>
+      </a>
     </div>
-    <div *ngIf="user.role=='Customer'">
+    <div *ngIf="user.role!='Owner'">
       <i class="fa fa-database novalid" aria-hidden="true"></i>
       <p class="novalid">Data</p>
     </div>

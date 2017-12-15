@@ -29,6 +29,7 @@ export class AuthService {
 
   userLogin(user): Observable<any> {
     return this.http.post(`${this.baseUrl}/login`, JSON.stringify(user), this.options)
+      .map(res => res.json())
   }
 
   userLogout(): Observable<any> {

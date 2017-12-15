@@ -1,0 +1,109 @@
+<simple-notifications></simple-notifications>
+<jaspero-confirmations></jaspero-confirmations>
+
+<div class="team-body" *ngIf="restaurant">
+  <div class="team-head">
+    <h1>{{restaurant.name}} - Tables</h1>
+  </div>
+  <div *ngIf="user.role!='Customer' && restaurant" class="team-body">
+    <h1><i class="fa fa-sticky-note-o" aria-hidden="true"></i>Interior Tables<i class="fa fa-sticky-note-o" aria-hidden="true"></i></h1>
+      <div class="table-group">
+        <div *ngFor="let interior of restaurant.tables" class="table-single">
+          <a [routerLink]="['/order',interior._id]">
+            <div *ngIf="interior.zone=='Interior'" class="table-list">
+              <h2>{{interior.title}}-{{interior.table_number}}</h2>
+            </div>
+          </a>
+        </div>
+      </div>
+    <h1><i class="fa fa-sticky-note-o" aria-hidden="true"></i>Exterior Tables<i class="fa fa-sticky-note-o" aria-hidden="true"></i></h1>
+      <div class="table-group">
+        <div *ngFor="let exterior of restaurant.tables" class="table-single">
+          <a [routerLink]="['/order',exterior._id]">
+            <div *ngIf="exterior.zone=='Exterior'" class="table-list">
+              <h2>{{exterior.title}}-{{exterior.table_number}}</h2>
+            </div>
+          </a>
+        </div>
+      </div>
+  </div>
+  <div *ngIf="user.role=='Owner'" class="team-add">
+    <i data-toggle="modal" data-target="#tableModal" class="fa fa-plus-circle" aria-hidden="true"></i>
+    <p>Add a new table to your restaurant!</p>
+    <p>OR</p>
+  </div>
+  <div *ngIf="user.role=='Owner' && restaurant.tables" class="team-add">
+    <i data-toggle="modal" data-target="#deleteModal" class="fa fa-times-circle" aria-hidden="true"></i>
+    <p>Click here to delete a table</p>
+  </div>
+</div>
+
+<div class="footer-limit"></div>
+<app-footer></app-footer>
+
+<div class="container">
+  <!-- Modal -->
+  <div class="modal fade" id="tableModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title"><i class="fa fa-cutlery" aria-hidden="true"></i>Add Table<i class="fa fa-cutlery" aria-hidden="true"></i></h1>
+        </div>
+        <form (ngSubmit)="tableAdd()" #tableForm="ngForm">
+            <div class="modal-body">
+                <div class="modal-input">
+                  <label for="title">Title (Dining, Patio...)</label><br>
+                  <input type="text" name="title" [(ngModel)]="table.title" required>
+                </div>
+                <div class="modal-input">
+                  <label for="table_number">Table Number</label><br>
+                  <input type="Number" name="table_number" [(ngModel)]="table.table_number" required min="0">
+                </div>
+                <div class="modal-input">
+                  <label for="zone">Zone</label><br>
+                  <select name="zone" [(ngModel)]="table.zone" required>
+                    <option value="Exterior">Exterior</option>
+                    <option value="Interior">Interior</option>
+                  </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <button type="submit" [disabled]="!tableForm.valid" data-toggle="modal" data-target="#tableModal">Add</button>
+              <p class="error" *ngIf="error">{{ error }}</p>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div class="container">
+  <!-- Modal -->
+  <div class="modal fade" id="deleteModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title"><i class="fa fa-cutlery" aria-hidden="true"></i>Add Table<i class="fa fa-cutlery" aria-hidden="true"></i></h1>
+        </div>
+        <form (ngSubmit)="tableDelete()" #deleteForm="ngForm">
+            <div class="modal-body">
+                <div class="modal-input">
+                  <label for="zone">Zone</label><br>
+                  <select name="zone" [(ngModel)]="delete" required>
+                    <option *ngFor="let delete of restaurant.tables" value="{{delete._id}}">{{delete.title}}-{{delete.table_number}}</option>
+                  </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <button type="submit" [disabled]="!deleteForm.valid" data-toggle="modal" data-target="#deleteModal">Add</button>
+              <p class="error" *ngIf="error">{{ error }}</p>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+</div>

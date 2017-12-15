@@ -1,0 +1,73 @@
+<simple-notifications></simple-notifications>
+<jaspero-confirmations></jaspero-confirmations>
+
+<div class="team-body" *ngIf="restaurant">
+  <div class="team-head">
+  <h1>{{restaurant.name}} - Team</h1>
+  </div>
+  <div *ngIf="user.role=='Owner'" class="team-body">
+    <h1><i class="fa fa-users" aria-hidden="true"></i>Managers List<i class="fa fa-users" aria-hidden="true"></i></h1>
+    <div *ngFor="let manager of restaurant.workers" class="team-list">
+      <div *ngIf="manager.role=='Manager'" class="team-list">
+        <h2>{{manager.username}} - {{manager.role}}</h2>
+        <button (click)="deleteThis(manager._id)" *ngIf="user._id==restaurant.owner">Delete</button>
+      </div>
+    </div>
+    <h1><i class="fa fa-users" aria-hidden="true"></i>Waiters List<i class="fa fa-users" aria-hidden="true"></i></h1>
+    <div *ngFor="let waiter of restaurant.workers" class="team-list">
+      <div *ngIf="waiter.role=='Waiter'" class="team-list">
+        <h2>{{waiter.username}} - {{waiter.role}}</h2>
+        <button (click)="deleteThis(waiter._id)" *ngIf="user._id==restaurant.owner">Delete</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="user.role=='Owner'" class="team-add">
+    <i data-toggle="modal" data-target="#teamModal" class="fa fa-plus-circle" aria-hidden="true"></i>
+    <p>Add a new team member to your restaurant!</p>
+  </div>
+</div>
+
+<div class="footer-limit"></div>
+<app-footer></app-footer>
+
+<div class="container">
+  <!-- Modal -->
+  <div class="modal fade" id="teamModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title"><i class="fa fa-cutlery" aria-hidden="true"></i>Add Members<i class="fa fa-cutlery" aria-hidden="true"></i></h1>
+        </div>
+        <form (ngSubmit)="teamAdd()" #teamForm="ngForm">
+            <div class="modal-body">
+                <div class="modal-input">
+                  <label for="username">Username</label><br>
+                  <input type="text" name="username" [(ngModel)]="worker.username" required>
+                </div>
+                <div class="modal-input">
+                  <label for="email">Email</label><br>
+                  <input type="text" name="email" [(ngModel)]="worker.email" required>
+                </div>
+                <div class="modal-input">
+                  <label for="password">Password</label><br>
+                  <input type="password" name="password" [(ngModel)]="worker.password" required>
+                </div>
+                <div class="modal-input">
+                  <label for="role">Account type</label><br>
+                  <select name="role" [(ngModel)]="worker.role" required>
+                    <option value="Manager">Manager</option>
+                    <option value="Waiter">Waiter</option>
+                  </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <button type="submit" [disabled]="!teamForm.valid" data-toggle="modal" data-target="#teamModal">Add</button>
+              <p class="error" *ngIf="error">{{ error }}</p>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+</div>

@@ -11,24 +11,28 @@ import { NotificationsService } from 'angular2-notifications';
   styleUrls: ['./lobby.component.css']
 })
 export class LobbyComponent implements OnInit {
-  private lobbyUser = {role : ''};
-  private restaurants: Array<Object>;
+  public lobbyUser = {role : ''};
+  public restaurants: Array<Object>;
   newRestaurant = {name: '', description: '', openTime: '' , closeTime: ''};
   uploader: FileUploader = new FileUploader({
     url: `http://localhost:3000/api/restaurant/new`
   });
 
-  constructor(public service: NotificationsService, private router : Router, private userService : UserService,  private restaurantService : RestaurantService,) {
-    this.userService.fillUser().subscribe(user => {
-      this.lobbyUser = user
-      if(this.lobbyUser.role == 'Customer') {
-        this.restaurantService.getRestaurants().subscribe(restaurants =>  {
-          this.restaurants = restaurants;
-          console.log(this.restaurants)
-          console.log(this.lobbyUser)
-        })
-      }
-    });
+  constructor(
+    public service: NotificationsService,
+    public router : Router,
+    public userService : UserService,
+    public restaurantService : RestaurantService,) {
+      this.userService.fillUser().subscribe(user => {
+        this.lobbyUser = user
+        if(this.lobbyUser.role == 'Customer') {
+          this.restaurantService.getRestaurants().subscribe(restaurants =>  {
+            this.restaurants = restaurants;
+            console.log(this.restaurants)
+            console.log(this.lobbyUser)
+          })
+        }
+      });
   }
 
   ngOnInit() {

@@ -19,6 +19,7 @@ module.exports.getInfo = (req, res, next) => {
     .populate("menu")
     .populate("workers")
     .populate("tables")
+    .populate("tickets")
     .then( restaurant => {
       debug(`Found Restaurant: ${restaurant.name}`);
       res.status(200).json(restaurant);

@@ -1,0 +1,94 @@
+.menu-body {
+  text-align: center;
+  color: #0d0a0a;
+}
+
+.menu-head {
+  color: white;
+  background-color: rgba(207, 58, 36, 0.8);
+  padding: 10px;
+  margin-bottom: 30px;
+}
+
+.menu-info i {
+  font-size: 0.7em;
+  margin: 0 10px;
+  color: rgba(13, 10, 10, 0.9)
+}
+
+.menu-head h1 {
+  margin: 0;
+  font-family: 'Medula One', cursive;
+  font-size: 4em;
+}
+
+.menu-hidden-list {
+  font-family: 'Medula One', cursive;
+  margin: 10px;
+}
+
+.menu-list {
+  font-family: 'Medula One', cursive;
+  margin: 10px;
+  border: 1px solid rgba(0,0,0,0.8)
+}
+
+.menu-list h2 {
+  margin: 5px;
+}
+
+.menu-list h3 {
+  margin: 5px;
+}
+
+.menu-detail {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* COMMON */
+button {
+  background-color: rgba(207, 58, 36, 0.8);
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  border: 1px solid white;
+  padding: 5px 10px;
+  margin: 10px;
+}
+
+.menu-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.menu-buttons i {
+  margin: 0;
+  font-size: 2.5em;
+  color: rgba(207, 58, 36, 0.8);
+  margin: auto 10px;
+}
+
+.menu-buttons button {
+  margin: 10px 0;
+  padding: 0;
+  background-color: white;
+}
+
+img {
+  width: 80%;
+  border: 0px;
+  border-radius: 5px;
+}
+
+.footer-limit {
+  height: 80px;
+}
+
+h1 {
+  font-family: 'Medula One', cursive;
+}
+
+h2 {
+  font-family: 'Medula One', cursive;
+}

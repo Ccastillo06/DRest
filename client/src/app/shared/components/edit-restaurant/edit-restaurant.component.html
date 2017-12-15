@@ -6,21 +6,64 @@
 </div>
 <div class="edit-res-info">
   <img src="{{restaurant.image}}" alt="restaurant-photo">
-  <div class="info-buttons">
-    <h2>For the public:</h2>
-    <div class="info-buttons-edit">
-      <button>Menu</button>
-      <button>Edit</button>
-    </div>
-    <h2>Management:</h2>
-    <div class="info-buttons-edit">
-      <button>Inventory</button>
-      <button>Tickets</button>
-      <button>Team</button>
-      <button>Tables</button>
+    <div class="info-buttons">
+      <h2>For the public:</h2>
+      <div class="info-buttons-edit">
+        <a [routerLink]="['/menu',restaurant._id]"><button>Menu</button></a>
+        <button data-toggle="modal" data-target="#restModal">Edit</button>
+      </div>
+      <h2>Management:</h2>
+      <div class="info-buttons-edit">
+        <a [routerLink]="['/total',restaurant._id]"><button>Tickets</button></a>
+        <a [routerLink]="['/team',restaurant._id]"><button>Team</button></a>
+        <a [routerLink]="['/tables',restaurant._id]"><button>Tables</button></a>
+      </div>
     </div>
   </div>
 </div>
 
 <div class="footer-limit"></div>
 <app-footer></app-footer>
+
+
+<div class="container">
+  <!-- Modal -->
+  <div class="modal fade" id="restModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title"><i class="fa fa-cutlery" aria-hidden="true"></i>Edit Restaurant<i class="fa fa-cutlery" aria-hidden="true"></i></h1>
+        </div>
+        <form (ngSubmit)="restEdit()" #restForm="ngForm">
+            <div class="modal-body">
+              <div class="modal-input">
+                <label for="name">Name</label><br>
+                <input type="text" name="name" [(ngModel)]="restaurant.name" required>
+              </div>
+              <div class="modal-input">
+                <label for="description">Description</label><br>
+                <textarea type="text" name="description" [(ngModel)]="restaurant.description" required></textarea>
+              </div>
+              <div class="modal-input">
+                <label for="open-time">Opening:</label><br>
+                <input type="time" name="openTime" value="00:00" [(ngModel)]="restaurant.openTime" required>
+              </div>
+              <div class="modal-input">
+                <label for="close-time">Closing:</label><br>
+                <input type="time" name="closeTime" value="00:00" [(ngModel)]="restaurant.closeTime" required>
+              </div>
+              <div class="modal-input">
+                <label for="file">Photo</label><br>
+                <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <button type="submit" [disabled]="!restForm.valid" data-toggle="modal" data-target="#restModal">Edit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<simple-notifications></simple-notifications>
+<jaspero-confirmations></jaspero-confirmations>
+
+<div class="menu-body" *ngIf="restaurant">
+  <div class="menu-head">
+  <h1>{{restaurant.name}} - Menu</h1>
+  </div>
+  <div *ngIf="user.role!='Owner' && restaurant" class="menu-info">
+    <a *ngIf="user.role=='Manager' && table.orders.length" [routerLink]="['/ticket',tableId]"><button>Ticket</button></a>
+    <h1><i class="fa fa-apple" aria-hidden="true"></i>Food<i class="fa fa-apple" aria-hidden="true"></i></h1>
+    <div *ngFor="let food of restaurant.menu">
+      <div class="menu-list" *ngIf="food.classification == 'Food'">
+        <h2>{{food.name}}................................{{food.menu_price}}€</h2>
+        <div class="menu-buttons">
+          <button (click)="plusThis(food._id)" *ngIf="user._id!=restaurant.owner"><i class="fa fa-plus-square" aria-hidden="true"></i></button>
+          <button (click)="minusThis(food._id)" *ngIf="user._id!=restaurant.owner"><i class="fa fa-minus-square" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+    <h1><i class="fa fa-beer" aria-hidden="true"></i>Drinks<i class="fa fa-beer" aria-hidden="true"></i></h1>
+    <div *ngFor="let drink of restaurant.menu">
+      <div class="menu-list" *ngIf="drink.classification == 'Drink'">
+        <h2>{{drink.name}}................................{{drink.menu_price}}€</h2>
+        <button (click)="plusThis(drink._id)" *ngIf="user._id!=restaurant.owner"><b>+</b></button>
+        <button (click)="minusThis(drink._id)" *ngIf="user._id!=restaurant.owner"><b>-</b></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-limit"></div>
+<app-footer></app-footer>

@@ -1,0 +1,23 @@
+<simple-notifications></simple-notifications>
+<jaspero-confirmations></jaspero-confirmations>
+
+<div class="menu-body" *ngIf="restaurant">
+  <div class="menu-head">
+  <h1>{{restaurant.name}} - Ticket</h1>
+  </div>
+  <div *ngIf="user.role=='Manager' && restaurant" class="menu-info">
+    <h1>Table: {{ticket.table_name}}</h1>
+    <div class="menu-list" *ngFor="let food of ticket.total_order">
+      <h2>{{food.name}}............{{food.amount}} units...............{{food.price}}€</h2>
+    </div>
+    <h1>Total Cost: {{ticket.total_price}}€</h1>
+  </div>
+</div>
+<div class="menu-mail">
+  <h2>Send to user:</h2>
+  <input type="text" name="usermail" [(ngModel)]="usermail"><br>
+  <button (click)="sendTicket()">Send</button>
+</div>
+
+<div class="footer-limit"></div>
+<app-footer></app-footer>
