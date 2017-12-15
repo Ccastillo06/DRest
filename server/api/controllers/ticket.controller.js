@@ -59,7 +59,7 @@ module.exports.generateTicket = (req, res, next) => {
             })
           })
           const theticket = new Ticket ({
-            total_price,
+            total_price = total_price.toFixed(2),
             table_name,
             total_order,
           });
