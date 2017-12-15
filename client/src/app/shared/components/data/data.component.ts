@@ -66,7 +66,8 @@ export class DataComponent implements OnInit {
              })
              this.doughnutChartLabels = this.foodObj.foodArray;
              this.doughnutChartData = this.foodObj.foodAmount;
-             this.average = this.average / restaurant.tickets.length;
+             this.average = (this.average / restaurant.tickets.length);
+             console.log('asdsadasdsad',this.average)
              this.show = true;
            });
          })
