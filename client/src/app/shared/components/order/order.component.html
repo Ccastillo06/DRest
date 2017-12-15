@@ -21,8 +21,10 @@
     <div *ngFor="let drink of restaurant.menu">
       <div class="menu-list" *ngIf="drink.classification == 'Drink'">
         <h2>{{drink.name}}................................{{drink.menu_price}}€</h2>
-        <button (click)="plusThis(drink._id)" *ngIf="user._id!=restaurant.owner"><b>+</b></button>
-        <button (click)="minusThis(drink._id)" *ngIf="user._id!=restaurant.owner"><b>-</b></button>
+        <div class="menu-buttons">
+          <button (click)="plusThis(drink._id)" *ngIf="user._id!=restaurant.owner"><b>+</b></button>
+          <button (click)="minusThis(drink._id)" *ngIf="user._id!=restaurant.owner"><b>-</b></button>
+        </div>
       </div>
     </div>
   </div>
