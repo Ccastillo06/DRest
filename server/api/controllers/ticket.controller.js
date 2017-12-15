@@ -46,12 +46,12 @@ module.exports.generateTicket = (req, res, next) => {
             }
           })
           table.orders.forEach(e => {
-            food_qty[food_names.indexOf(e._id.name)] = parseInt(food_qty[food_names.indexOf(e._id.name)]) + parseInt(e.qty)
+            food_qty[food_names.indexOf(e._id.name)] = parseFloat(food_qty[food_names.indexOf(e._id.name)]) + parseFloat(e.qty)
           })
           let total_price = 0;
           let total_order = [];
           food_names.forEach((e,i) => {
-            total_price += parseInt(food_qty[i]) * parseInt(food_price[i]);
+            total_price += parseFloat(food_qty[i]) * parseFloat(food_price[i]);
             total_order.push({
               name: food_names[i],
               amount: food_qty[i],
@@ -98,7 +98,7 @@ module.exports.updateInventory = (req, res, next) => {
               productList.forEach(x => {
                 req.body.total_order.forEach(y => {
                   if(x.name == y.name) {
-                    x.quantity = (parseInt(x.quantity) - parseInt(y.amount)).toString();
+                    x.quantity = (parseFloat(x.quantity) - parseFloat(y.amount)).toString();
                   }
                 })
                 x.save();
