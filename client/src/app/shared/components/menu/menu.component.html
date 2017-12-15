@@ -9,23 +9,23 @@
     <h1><i class="fa fa-apple" aria-hidden="true"></i>Food<i class="fa fa-apple" aria-hidden="true"></i></h1>
     <div *ngFor="let food of restaurant.menu">
       <div class="menu-list" *ngIf="food.classification == 'Food' && user.role!='Customer'">
-        <h2>{{food.name}}................................{{food.menu_price}}€</h2>
+        <h2>{{food.name}}........................{{food.menu_price}}€</h2>
         <button (click)="deleteThis(food._id)" *ngIf="user._id==restaurant.owner">Delete</button>
         <button *ngIf="user._id!=restaurant.owner">Order</button>
       </div>
       <div class="menu-list-user" *ngIf="food.classification == 'Food' && user.role=='Customer'">
-        <h2>{{food.name}}................................{{food.menu_price}}€</h2>
+        <h2>{{food.name}}........................{{food.menu_price}}€</h2>
       </div>
     </div>
     <h1><i class="fa fa-beer" aria-hidden="true"></i>Drinks<i class="fa fa-beer" aria-hidden="true"></i></h1>
     <div *ngFor="let drink of restaurant.menu">
       <div class="menu-list" *ngIf="drink.classification == 'Drink' && user.role!='Customer'">
-        <h2>{{drink.name}}................................{{drink.menu_price}}€</h2>
+        <h2>{{drink.name}}........................{{drink.menu_price}}€</h2>
         <button (click)="deleteThis(drink._id)" *ngIf="user._id==restaurant.owner">Delete</button>
         <button *ngIf="user._id!=restaurant.owner">Order</button>
       </div>
       <div class="menu-list-user" *ngIf="drink.classification == 'Drink' && user.role=='Customer'">
-        <h2>{{drink.name}}................................{{drink.menu_price}}€</h2>
+        <h2>{{drink.name}}........................{{drink.menu_price}}€</h2>
       </div>
     </div>
   </div>
