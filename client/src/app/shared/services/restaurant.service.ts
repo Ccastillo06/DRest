@@ -1,10 +1,11 @@
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs/Rx';
+import { environment }  from '../../../environments/environment';
 
 @Injectable()
 export class RestaurantService {
-  private baseUrl = `http://localhost:3000/api/restaurant`;
+  private baseUrl = `${environment.BASE_URL}/restaurant`;
   private headers = new Headers({ 'Content-Type' : 'application/json'});
   private options = new RequestOptions({ headers: this.headers, withCredentials: true });
   private restaurant: Object;
