@@ -4,6 +4,7 @@ import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { ProductService } from '../../services/product.service';
+import { environment }  from '../../../../environments/environment';
 
 @Component({
   selector: 'app-products',
@@ -15,7 +16,7 @@ export class ProductsComponent implements OnInit {
   productsArray: Array<Object> = [];
   newProduct = {name:'', description:'', classification:'', denomination:'', quantity: 0, inventory_price: 0, menu_price: 0};
   uploader: FileUploader = new FileUploader({
-    url: `http://localhost:3000/api/product/new`
+    url: `${environment.BASE_URL}/product/new`
   });
   showAll: Boolean = true;
   showFood: Boolean = false;
@@ -26,8 +27,8 @@ export class ProductsComponent implements OnInit {
   utilsArray: Array<Object> = [];
   constructor(
     public service: NotificationsService,
-    public router : Router, 
-    public userService : UserService,  
+    public router : Router,
+    public userService : UserService,
     public productService : ProductService,) {
     this.userService.fillUser().subscribe(user => {
       this.productUser = user

@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { RestaurantService } from '../../services/restaurant.service';
 import { FileUploader } from "ng2-file-upload";
 import { NotificationsService } from 'angular2-notifications';
+import { environment }  from '../../../../environments/environment';
 
 @Component({
   selector: 'app-edit-restaurant',
@@ -26,7 +27,7 @@ export class EditRestaurantComponent implements OnInit {
          this.restaurantService.getOneRestaurant(this.id).subscribe(restaurant =>  {
            this.restaurant = restaurant;
            this.uploader = new FileUploader({
-             url: `http://localhost:3000/api/restaurant/edit/${restaurant._id}`
+             url: `${environment.BASE_URL}/restaurant/edit/${restaurant._id}`
            });
          });
       });

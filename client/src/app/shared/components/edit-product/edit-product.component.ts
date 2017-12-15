@@ -5,6 +5,7 @@ import { ProductService } from '../../services/product.service';
 import { FileUploader } from "ng2-file-upload";
 import { NotificationsService } from 'angular2-notifications';
 import { ConfirmationService } from '@jaspero/ng-confirmations';
+import { environment }  from '../../../../environments/environment';
 
 @Component({
   selector: 'app-edit-product',
@@ -29,7 +30,7 @@ export class EditProductComponent implements OnInit {
          this.productService.getOneProduct(this.id).subscribe(product =>  {
            this.product = product;
            this.uploader = new FileUploader({
-             url: `http://localhost:3000/api/product/edit/${product._id}`
+             url: `${environment.BASE_URL}/product/edit/${product._id}`
            });
            this.userService.fillUser().subscribe(user => {this.user = user; console.log(user)})
          });

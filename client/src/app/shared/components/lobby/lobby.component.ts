@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { RestaurantService } from '../../services/restaurant.service';
 import { FileUploader } from "ng2-file-upload";
 import { NotificationsService } from 'angular2-notifications';
+import { environment }  from '../../../../environments/environment';
 
 @Component({
   selector: 'app-lobby',
@@ -15,7 +16,7 @@ export class LobbyComponent implements OnInit {
   public restaurants: Array<Object>;
   newRestaurant = {name: '', description: '', openTime: '' , closeTime: ''};
   uploader: FileUploader = new FileUploader({
-    url: `http://localhost:3000/api/restaurant/new`
+    url: `${environment.BASE_URL}/restaurant/new`
   });
 
   constructor(
