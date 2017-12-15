@@ -5,6 +5,7 @@ const Restaurant = require('../models/restaurant.model');
 const Ticket = require('../models/ticket.model');
 const User = require('../models/user.model');
 const Product = require('../models/product.model');
+const nodemailer = require('nodemailer');
 
 module.exports.generateTicket = (req, res, next) => {
   if(req.user.role!='Manager' || req.user.works_in != req.params.rest_id){
@@ -87,7 +88,41 @@ module.exports.updateInventory = (req, res, next) => {
                 })
                 x.save();
               })
+              res.status(200).json(x)
             })
           })
         })
+}
+
+module.exports.sendMail = (req, res, next) => {
+  if(req.user.role!='Manager'){
+    res.status(401).json({ message : 'Unauthorized'});
+    return
+  }
+
+  Restaurant.findById(req.user.works_in)
+    .then(restaurant => {
+      var transporter = nodemailer.createTransport({
+          service: 'Gmail',
+          auth: {
+              user: `${process.env.ADMIN_MAIL}`,
+              pass: `${process.env.ADMIN_PASS}`
+          }
+      });
+      var text = `Hi dear customer,\n\nthank you very much from ${restaurant.name} for your purchase.
+      \n\nHere is some data of your ticket:\n\nTable: ${req.body.table_name}\n\nTotal: ${req.body.total_price}€\n\n
+      If you want some more data, send us an email and we will contact you within a few days.\n\n
+      Thank you so much!`
+      var mailOptions = {
+        from: `${process.env.ADMIN_MAIL}`,
+        to: req.params.usermail,
+        subject: 'Your Ticket is here!',
+        text: text
+      }
+      console.log(text)
+      transporter.sendMail(mailOptions, (err, info) => {
+        return err ? console.log(err) : console.log(info);
+      });
+      res.status(200).json({message: 'Sent!'})
+    })
 }
